@@ -25,10 +25,9 @@ export default function CustomNavbar({ user, handleLogout }) {
   ];
 
   return (
-    <div className="w-full shadow bg-gray-900 sticky top-0 z-50">
+    <div className="w-full shadow bg-gray-900 text-white sticky top-0 z-50">
 
-      {/* 🔹 Navbar */}
-      <Navbar maxWidth="full" className="px-6 py-3">
+      <Navbar maxWidth="full" className="px-6 py-3 bg-gray-900">
 
         {/* 🔹 Left → Logo */}
         <NavbarContent justify="start" className="flex-1">
@@ -44,20 +43,29 @@ export default function CustomNavbar({ user, handleLogout }) {
           justify="center"
           className="hidden md:flex flex-1 gap-8"
         >
-          {navLinks.map((link) => (
-            <NavbarItem key={link.path}>
-              <Link
-                href={link.path}
-                className={`transition ${
-                  pathname === link.path
-                    ? "text-white font-semibold border-b-2 border-white-500"
-                    : "text-purple-500 hover:text-primary"
-                }`}
-              >
-                {link.name}
-              </Link>
-            </NavbarItem>
-          ))}
+          {navLinks.map((link) => {
+            const isActive = pathname === link.path;
+
+            return (
+              <NavbarItem key={link.path}>
+                <Link
+                  href={link.path}
+                  className={`relative transition ${
+                    isActive
+                      ? "text-white font-semibold"
+                      : "text-gray-300 hover:text-white"
+                  }`}
+                >
+                  {link.name}
+
+                  {/* Active underline */}
+                  {isActive && (
+                    <span className="absolute left-0 -bottom-1 w-full h-[2px] bg-blue-500 rounded"></span>
+                  )}
+                </Link>
+              </NavbarItem>
+            );
+          })}
         </NavbarContent>
 
         {/* 🔹 Right → Hamburger + Auth */}
@@ -67,22 +75,29 @@ export default function CustomNavbar({ user, handleLogout }) {
           <div className="md:hidden mr-2">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="text-2xl p-2 rounded-lg hover:bg-gray-100 transition"
+              className="text-2xl p-2 rounded-lg hover:bg-gray-800 transition"
             >
               {isMenuOpen ? <FaTimes /> : <FaBars />}
             </button>
           </div>
 
-          {/* Desktop Login */}
+          {/* Desktop Auth */}
           <div className="hidden md:block">
             {!user ? (
               <Link href="/login">
-                <Button color="primary" variant="flat" className="hover:bg-blue-500 text-pink-500">
+                <Button
+                  color="primary"
+                  className="bg-blue-600 hover:bg-blue-700 text-white"
+                >
                   Login
                 </Button>
               </Link>
             ) : (
-              <Button color="danger" variant="flat" onClick={handleLogout}>
+              <Button
+                color="danger"
+                variant="flat"
+                onClick={handleLogout}
+              >
                 Logout
               </Button>
             )}
@@ -94,37 +109,41 @@ export default function CustomNavbar({ user, handleLogout }) {
 
       {/* 🔻 Mobile Menu */}
       {isMenuOpen && (
-        <div className="md:hidden bg-white border-t shadow px-6 py-4 space-y-3">
+        <div className="md:hidden bg-gray-900 text-white border-t border-gray-700 px-6 py-4 space-y-3">
 
-          {navLinks.map((link) => (
-            <Link
-              key={link.path}
-              href={link.path}
-              onClick={() => setIsMenuOpen(false)}
-              className={`block py-2 ${
-                pathname === link.path
-                  ? "text-primary font-semibold"
-                  : "text-gray-700"
-              }`}
-            >
-              {link.name}
-            </Link>
-          ))}
+          {navLinks.map((link) => {
+            const isActive = pathname === link.path;
 
-          {/* Divider */}
-          <div className="border-t pt-3"></div>
+            return (
+              <Link
+                key={link.path}
+                href={link.path}
+                onClick={() => setIsMenuOpen(false)}
+                className={`block py-2 ${
+                  isActive
+                    ? "text-blue-400 font-semibold"
+                    : "text-gray-300"
+                }`}
+              >
+                {link.name}
+              </Link>
+            );
+          })}
 
-          {/* Auth */}
+          <div className="border-t border-gray-700 pt-3"></div>
+
           {!user ? (
             <Link href="/login" onClick={() => setIsMenuOpen(false)}>
-              <Button color="primary" fullWidth>
+              <Button
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white"
+              >
                 Login
               </Button>
             </Link>
           ) : (
             <Button
+              className="w-full"
               color="danger"
-              fullWidth
               onClick={() => {
                 handleLogout();
                 setIsMenuOpen(false);

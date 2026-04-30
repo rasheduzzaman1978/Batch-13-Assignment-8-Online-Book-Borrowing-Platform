@@ -1,9 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { Input, Button, Card } from "@heroui/react";
+import { Button, Card } from "@heroui/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { toast } from "react-toastify";
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -15,81 +17,150 @@ export default function RegisterPage() {
     image: "",
   });
 
+  const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+
+  // 🔥 Validation
+  const validate = () => {
+    let newErrors = {};
+
+    if (!form.name) newErrors.name = "Name is required";
+
+    if (!form.email) {
+      newErrors.email = "Email is required";
+    } else if (!/\S+@\S+\.\S+/.test(form.email)) {
+      newErrors.email = "Invalid email";
+    }
+
+    if (!form.password) {
+      newErrors.password = "Password is required";
+    } else if (form.password.length < 6) {
+      newErrors.password = "Minimum 6 characters";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
   const handleRegister = async (e) => {
     e.preventDefault();
 
-    const res = await fetch("/api/auth/sign-up/email", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(form),
-    });
-
-    if (res.ok) {
-      router.push("/login");
-    } else {
-      alert("Registration failed");
+    if (!validate()) {
+      toast.error("Please fix the errors");
+      return;
     }
+
+    setLoading(true);
+
+    try {
+      const res = await fetch("/api/auth/sign-up/email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(form),
+      });
+
+      if (res.ok) {
+        toast.success("Registration successful 🎉");
+        router.push("/login");
+      } else {
+        toast.error("Registration failed");
+      }
+    } catch (err) {
+      toast.error("Something went wrong");
+    }
+
+    setLoading(false);
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
-      
-      <Card className="w-full max-w-md p-8 shadow-lg rounded-2xl bg-white">
+    <div className="min-h-[70%] flex items-center justify-center bg-gray-100 px-4">
+
+      <Card className="w-full max-w-md p-8 shadow-xl rounded-2xl bg-white">
 
         <h2 className="text-2xl font-bold text-center mb-6 text-gray-800">
           Create an Account
         </h2>
 
-        <form onSubmit={handleRegister} className="space-y-4 flex flex-col">
+        <form onSubmit={handleRegister} className="space-y-5">
 
-          <Input
-            placeholder="Enter your name"
-            variant="bordered"
-            radius="lg"
-            required
-            onChange={(e) =>
-              setForm({ ...form, name: e.target.value })
-            }
-          />
+          {/* Name */}
+          <div>
+            <label className="text-sm text-gray-600">Name</label>
+            <input
+              type="text"
+              className="w-full border rounded-lg px-3 py-2 mt-1 focus:outline-none focus:border-blue-500"
+              onChange={(e) =>
+                setForm({ ...form, name: e.target.value })
+              }
+            />
+            {errors.name && (
+              <p className="text-red-500 text-sm">{errors.name}</p>
+            )}
+          </div>
 
-          <Input
-            placeholder="Photo URL"
-            variant="bordered"
-            radius="lg"
-            onChange={(e) =>
-              setForm({ ...form, image: e.target.value })
-            }
-          />
+          {/* Photo */}
+          <div>
+            <label className="text-sm text-gray-600">Photo URL</label>
+            <input
+              type="text"
+              className="w-full border rounded-lg px-3 py-2 mt-1 focus:outline-none focus:border-blue-500"
+              onChange={(e) =>
+                setForm({ ...form, image: e.target.value })
+              }
+            />
+          </div>
 
-          <Input
-            placeholder="Enter your email"
-            type="email"
-            variant="bordered"
-            radius="lg"
-            required
-            onChange={(e) =>
-              setForm({ ...form, email: e.target.value })
-            }
-          />
+          {/* Email */}
+          <div>
+            <label className="text-sm text-gray-600">Email</label>
+            <input
+              type="email"
+              className="w-full border rounded-lg px-3 py-2 mt-1 focus:outline-none focus:border-blue-500"
+              onChange={(e) =>
+                setForm({ ...form, email: e.target.value })
+              }
+            />
+            {errors.email && (
+              <p className="text-red-500 text-sm">{errors.email}</p>
+            )}
+          </div>
 
-          <Input
-            placeholder="Enter your password"
-            type="password"
-            variant="bordered"
-            radius="lg"
-            required
-            onChange={(e) =>
-              setForm({ ...form, password: e.target.value })
-            }
-          />
+          {/* Password */}
+          <div className="relative">
+            <label className="text-sm text-gray-600">Password</label>
 
+            <input
+              type={showPassword ? "text" : "password"}
+              className="w-full border rounded-lg px-3 py-2 mt-1 pr-10 focus:outline-none focus:border-blue-500"
+              onChange={(e) =>
+                setForm({ ...form, password: e.target.value })
+              }
+            />
+
+            {/* 👁️ Toggle */}
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-3 top-10 text-gray-500"
+            >
+              {showPassword ? <FaEyeSlash /> : <FaEye />}
+            </button>
+
+            {errors.password && (
+              <p className="text-red-500 text-sm">{errors.password}</p>
+            )}
+          </div>
+
+          {/* Button */}
           <Button
             type="submit"
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg"
+            disabled={loading}
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white"
           >
-            Register
+            {loading ? "Registering..." : "Register"}
           </Button>
 
         </form>
