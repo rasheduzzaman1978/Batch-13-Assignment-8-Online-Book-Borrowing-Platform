@@ -1,104 +1,138 @@
 "use client";
 
-import { useState } from "react";
-import { authClient } from "@/lib/auth-client";
-import { Button } from "@heroui/react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useState } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
 
-const Navbar = () => {
-  const { data, isPending } = authClient.useSession();
-  const user = data?.user;
+import {
+  Navbar,
+  NavbarBrand,
+  NavbarContent,
+  NavbarItem,
+} from "@heroui/navbar";
 
-  const [isOpen, setIsOpen] = useState(false);
+import { Button } from "@heroui/react";
 
-  const handleLogout = async () => {
-    await authClient.signOut();
-  };
+export default function CustomNavbar({ user, handleLogout }) {
+  const pathname = usePathname();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  if (isPending) {
-    return <div className="p-4 text-center">Loading...</div>;
-  }
+  const navLinks = [
+    { name: "Home", path: "/" },
+    { name: "All Books", path: "/books" },
+    { name: "My Profile", path: "/profile" },
+  ];
 
   return (
-    <nav className="px-6 py-4 bg-white shadow-md sticky top-0 z-50">
+    <div className="w-full shadow bg-white sticky top-0 z-50">
       
-      <div className="flex items-center justify-between">
-        {/* 🔹 Logo */}
-        <Link href="/" className="text-2xl font-bold text-blue-600">
-          📚 BookNest
+      {/* 🔹 Navbar Top */}
+      <Navbar maxWidth="xl">
+
+  {/* 🔹 Left → Logo */}
+  <NavbarContent justify="start">
+    <NavbarBrand>
+      <Link href="/" className="font-bold text-xl">
+        📚 BookNest
+      </Link>
+    </NavbarBrand>
+  </NavbarContent>
+
+  {/* 🔹 Center → Desktop Menu */}
+  <NavbarContent className="hidden md:flex gap-8" justify="center">
+    {navLinks.map((link) => (
+      <NavbarItem key={link.path}>
+        <Link
+          href={link.path}
+          className={`${
+            pathname === link.path
+              ? "text-primary font-semibold border-b-2 border-primary"
+              : "text-gray-600 hover:text-primary"
+          }`}
+        >
+          {link.name}
         </Link>
+      </NavbarItem>
+    ))}
+  </NavbarContent>
 
-        {/* 🔹 Desktop Menu */}
-        <div className="hidden md:flex gap-6 text-gray-700 font-medium">
-          <Link href="/" className="hover:text-blue-600">Home</Link>
-          <Link href="/books" className="hover:text-blue-600">All Books</Link>
-          <Link href="/profile" className="hover:text-blue-600">My Profile</Link>
-        </div>
+  {/* 🔹 Right → Hamburger + Auth */}
+  <NavbarContent justify="end">
 
-        {/* 🔹 Right (Desktop Auth) */}
-        <div className="hidden md:flex items-center gap-3">
+    {/* Mobile Hamburger */}
+    <div className="md:hidden mr-2">
+      <button
+        onClick={() => setIsMenuOpen(!isMenuOpen)}
+        className="text-2xl p-2 rounded-lg hover:bg-gray-100 transition"
+      >
+        {isMenuOpen ? <FaTimes /> : <FaBars />}
+      </button>
+    </div>
+
+    {/* Desktop Login */}
+    <div className="hidden md:block">
+      {!user ? (
+        <Link href="/login">
+          <Button color="primary" variant="flat">
+            Login
+          </Button>
+        </Link>
+      ) : (
+        <Button color="danger" variant="flat" onClick={handleLogout}>
+          Logout
+        </Button>
+      )}
+    </div>
+
+  </NavbarContent>
+
+</Navbar>
+
+      {/* 🔻 Mobile Dropdown Menu (FIXED) */}
+      {isMenuOpen && (
+        <div className="md:hidden bg-white border-t shadow px-6 py-4 space-y-3">
+
+          {navLinks.map((link) => (
+            <Link
+              key={link.path}
+              href={link.path}
+              onClick={() => setIsMenuOpen(false)}
+              className={`block py-2 ${
+                pathname === link.path
+                  ? "text-primary font-semibold"
+                  : "text-gray-700"
+              }`}
+            >
+              {link.name}
+            </Link>
+          ))}
+
+          {/* Divider */}
+          <div className="border-t pt-3"></div>
+
+          {/* Auth */}
           {!user ? (
-            <Link href="/login">
-              <Button size="sm" className="bg-blue-600 text-white rounded-full px-4">
+            <Link href="/login" onClick={() => setIsMenuOpen(false)}>
+              <Button color="primary" fullWidth>
                 Login
               </Button>
             </Link>
           ) : (
-            <>
-              <span className="text-gray-700">Hi, {user?.name}</span>
-              <Button
-                size="sm"
-                className="bg-red-500 text-white rounded-full px-4"
-                onClick={handleLogout}
-              >
-                Logout
-              </Button>
-            </>
+            <Button
+              color="danger"
+              fullWidth
+              onClick={() => {
+                handleLogout();
+                setIsMenuOpen(false);
+              }}
+            >
+              Logout
+            </Button>
           )}
-        </div>
 
-        {/* 🔹 Hamburger Icon */}
-        <button
-          className="md:hidden text-2xl text-gray-700"
-          onClick={() => setIsOpen(!isOpen)}
-        >
-          {isOpen ? <FaTimes /> : <FaBars />}
-        </button>
-      </div>
-
-      {/* 🔽 Mobile Menu */}
-      {isOpen && (
-        <div className="md:hidden mt-4 flex flex-col gap-4 bg-gray-50 p-4 rounded-lg shadow">
-          
-          <Link href="/" onClick={() => setIsOpen(false)}>Home</Link>
-          <Link href="/books" onClick={() => setIsOpen(false)}>All Books</Link>
-          <Link href="/profile" onClick={() => setIsOpen(false)}>My Profile</Link>
-
-          <div className="border-t pt-3">
-            {!user ? (
-              <Link href="/login" onClick={() => setIsOpen(false)}>
-                <Button size="sm" className="w-full bg-blue-600 text-white">
-                  Login
-                </Button>
-              </Link>
-            ) : (
-              <>
-                <p className="mb-2">Hi, {user?.name}</p>
-                <Button
-                  size="sm"
-                  className="w-full bg-red-500 text-white"
-                  onClick={handleLogout}
-                >
-                  Logout
-                </Button>
-              </>
-            )}
-          </div>
         </div>
       )}
-    </nav>
+    </div>
   );
-};
-
-export default Navbar;
+}
