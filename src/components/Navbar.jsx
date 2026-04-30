@@ -85,7 +85,7 @@ export default function CustomNavbar({ user, handleLogout }) {
           <div className="hidden md:block">
             {!user ? (
               <Link href="/login">
-                <Button
+                <Button 
                   color="primary"
                   className="bg-blue-600 hover:bg-blue-700 text-white"
                 >
