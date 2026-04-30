@@ -1,25 +1,31 @@
+import Banner from "@/components/Banner";
+import Link from "next/link";
+
 export default function Page() {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50">
-      <div className="max-w-2xl text-center p-6 bg-white shadow-lg rounded-2xl">
-        
-        <h1 className="text-3xl md:text-4xl font-bold text-gray-800">
-          Welcome to{" "}
-          <span className="text-blue-600">
-            Online Book Borrowing Platform 📚
-          </span>
-        </h1>
+    <div>
 
-        <p className="mt-4 text-gray-600 text-lg">
-          Browse, borrow, and manage your favorite books online with ease. 
-          A simple and efficient digital library system for readers.
+      {/* 🔥 Banner */}
+      <Banner />
+
+      {/* 📚 Content Section */}
+      <section className="py-16 px-4 bg-gray-50 text-center">
+        <h2 className="text-3xl font-bold mb-4">
+          Why Choose Us?
+        </h2>
+
+        <p className="text-gray-600 max-w-2xl mx-auto mb-6">
+          Easily browse, borrow, and manage your favorite books online.
+          Fast, simple, and user-friendly experience.
         </p>
 
-        <button className="mt-6 px-6 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition">
-          Explore Books
-        </button>
+        <Link href="/books">
+          <button className="px-6 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700">
+            Explore Books
+          </button>
+        </Link>
+      </section>
 
-      </div>
     </div>
   );
 }

@@ -1,0 +1,110 @@
+[
+  {
+    "id": 1,
+    "title": "Pather Panchali",
+    "author": "Bibhutibhushan Bandyopadhyay",
+    "description": "A touching story of rural Bengal through the life of a poor family and their struggles.",
+    "category": "Story",
+    "available_quantity": 5,
+    "image_url": "https://example.com/pather-panchali.jpg"
+  },
+  {
+    "id": 2,
+    "title": "Devdas",
+    "author": "Sarat Chandra Chattopadhyay",
+    "description": "A tragic love story that explores societal norms and emotional conflict.",
+    "category": "Story",
+    "available_quantity": 7,
+    "image_url": "https://example.com/devdas.jpg"
+  },
+  {
+    "id": 3,
+    "title": "Lalsalu (Tree Without Roots)",
+    "author": "Syed Waliullah",
+    "description": "A powerful novel about religion, power, and manipulation in a rural village.",
+    "category": "Story",
+    "available_quantity": 4,
+    "image_url": "https://example.com/lalsalu.jpg"
+  },
+  {
+    "id": 4,
+    "title": "Hajar Bochor Dhore",
+    "author": "Zahir Raihan",
+    "description": "A portrayal of village life and traditions over generations in Bengal.",
+    "category": "Story",
+    "available_quantity": 6,
+    "image_url": "https://example.com/hajar-bochor-dhore.jpg"
+  },
+  {
+    "id": 5,
+    "title": "Ami Topu",
+    "author": "Muhammad Zafar Iqbal",
+    "description": "A popular science fiction story for young readers with imagination and adventure.",
+    "category": "Science",
+    "available_quantity": 10,
+    "image_url": "https://example.com/ami-topu.jpg"
+  },
+  {
+    "id": 6,
+    "title": "Shanku Samagra",
+    "author": "Muhammad Zafar Iqbal",
+    "description": "A collection of thrilling science fiction stories filled with innovation and curiosity.",
+    "category": "Science",
+    "available_quantity": 8,
+    "image_url": "https://example.com/shanku.jpg"
+  },
+  {
+    "id": 7,
+    "title": "Roktoakta Prantor",
+    "author": "Munier Chowdhury",
+    "description": "A dramatic depiction of the historical struggle and cultural identity.",
+    "category": "Story",
+    "available_quantity": 3,
+    "image_url": "https://example.com/roktoakta-prantor.jpg"
+  },
+  {
+    "id": 8,
+    "title": "Computer Fundamentals",
+    "author": "Dr. Mohammad Kaykobad",
+    "description": "An introduction to basic computing concepts and problem-solving techniques.",
+    "category": "Tech",
+    "available_quantity": 12,
+    "image_url": "https://example.com/computer-fundamentals.jpg"
+  },
+  {
+    "id": 9,
+    "title": "Digital Bangladesh Vision",
+    "author": "Mustafa Jabbar",
+    "description": "Insights into the technological transformation and digital development of Bangladesh.",
+    "category": "Tech",
+    "available_quantity": 9,
+    "image_url": "https://example.com/digital-bd.jpg"
+  },
+  {
+    "id": 10,
+    "title": "Aranyak",
+    "author": "Bibhutibhushan Bandyopadhyay",
+    "description": "A novel exploring the beauty of forests and the relationship between humans and nature.",
+    "category": "Story",
+    "available_quantity": 5,
+    "image_url": "https://example.com/aranyak.jpg"
+  },
+  {
+    "id": 11,
+    "title": "Feluda Stories",
+    "author": "Satyajit Ray",
+    "description": "A collection of detective stories featuring the famous Bengali sleuth Feluda.",
+    "category": "Story",
+    "available_quantity": 11,
+    "image_url": "https://example.com/feluda.jpg"
+  },
+  {
+    "id": 12,
+    "title": "Quantum Mechanics Basics",
+    "author": "Dr. Jamal Nazrul Islam",
+    "description": "An accessible introduction to fundamental concepts in quantum physics.",
+    "category": "Science",
+    "available_quantity": 6,
+    "image_url": "https://example.com/quantum.jpg"
+  }
+]
