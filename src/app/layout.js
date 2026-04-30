@@ -2,6 +2,7 @@ import Footer from "@/components/Footer";
 import "./globals.css";
 import NavbarWrapper from "@/components/NavbarWrapper";
 import BreakingNews from "@/components/BreakingNews";
+import Providers from "@/components/Providers"; // 👈 add this
 
 export const metadata = {
   title: "Online-Book-Borrowing-Platform",
@@ -14,14 +15,18 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className="min-h-screen flex flex-col">
 
-        {/* ✅ Client wrapper */}
-        <NavbarWrapper />
+        {/* ✅ Wrap everything with SessionProvider */}
+        <Providers>
+          <NavbarWrapper />
+          <BreakingNews />
 
-        <BreakingNews />
+          <main className="flex-grow">
+            {children}
+          </main>
 
-        <main className="flex-grow">{children}</main>
+          <Footer />
+        </Providers>
 
-        <Footer />
       </body>
     </html>
   );

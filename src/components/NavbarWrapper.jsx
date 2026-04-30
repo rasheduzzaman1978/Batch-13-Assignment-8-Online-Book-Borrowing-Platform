@@ -1,17 +1,19 @@
 "use client";
 
 import Navbar from "@/components/Navbar";
-import useAuth from "@/hooks/useAuth";
-import { useRouter } from "next/navigation";
+import { useSession, signOut } from "next-auth/react";
 
 export default function NavbarWrapper() {
-  const { user } = useAuth();
-  const router = useRouter();
+  const { data: session } = useSession();
 
   const handleLogout = async () => {
-    await fetch("/api/auth/logout", { method: "POST" });
-    router.push("/login");
+    await signOut({ callbackUrl: "/login" });
   };
 
-  return <Navbar user={user} handleLogout={handleLogout} />;
+  return (
+    <Navbar
+      user={session?.user}
+      handleLogout={handleLogout}
+    />
+  );
 }
