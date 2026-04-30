@@ -2,6 +2,7 @@ import Footer from "@/components/Footer";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import BreakingNews from "@/components/BreakingNews";
+import FeaturedBooks from "@/components/FeaturedBooks";
 
 export const metadata = {
   title: "Online-Book-Borrowing-Platform",
@@ -20,7 +21,7 @@ export default function RootLayout({ children }) {
         <main className="flex-grow">
           {children}
         </main>
-
+        <FeaturedBooks />
         <Footer />
 
       </body>

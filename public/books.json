@@ -6,7 +6,7 @@
     "description": "A touching story of rural Bengal through the life of a poor family and their struggles.",
     "category": "Story",
     "available_quantity": 5,
-    "image_url": "https://example.com/pather-panchali.jpg"
+    "image_url": "https://cdn.exoticindia.com/images/products/original/books-2019-005/hap384.jpg"
   },
   {
     "id": 2,
@@ -15,7 +15,7 @@
     "description": "A tragic love story that explores societal norms and emotional conflict.",
     "category": "Story",
     "available_quantity": 7,
-    "image_url": "https://example.com/devdas.jpg"
+    "image_url": "https://rokbucket.rokomari.io/ProductNew20190903/260X372/941992163_115564.jpg"
   },
   {
     "id": 3,
@@ -24,7 +24,7 @@
     "description": "A powerful novel about religion, power, and manipulation in a rural village.",
     "category": "Story",
     "available_quantity": 4,
-    "image_url": "https://example.com/lalsalu.jpg"
+    "image_url": "https://scontent.fdac184-1.fna.fbcdn.net/v/t39.30808-6/470208802_1129291051966166_2923719689928823685_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=13d280&_nc_eui2=AeFWWcW6xHh6auDCUyGL1y6eV_mh4bnL3wdX-aHhucvfB5kkNRHfGN6Xefo2d-5rOaF4a_kBGn-Q5HEAEPeAQJUG&_nc_ohc=01ljxc9eXr4Q7kNvwGj6Y4R&_nc_oc=AdoK7HadcqlIKQRjxh9J5vvZ_bOcKU0t4jGDWY4mBq2OmAyrDP6kL7G23jqldJkvySs&_nc_zt=23&_nc_ht=scontent.fdac184-1.fna&_nc_gid=oLjqm2fL7hbvLp1Io_TnSw&_nc_ss=7b2a8&oh=00_Af1R7u-koi7i1C4zb5vvDhUfcHMf4QvIoFZiiUc7gfGbug&oe=69F94D16"
   },
   {
     "id": 4,
@@ -33,7 +33,7 @@
     "description": "A portrayal of village life and traditions over generations in Bengal.",
     "category": "Story",
     "available_quantity": 6,
-    "image_url": "https://example.com/hajar-bochor-dhore.jpg"
+    "image_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJp6qysmAUyW_Fc276yibWGy1w71AsPTUmWw&s"
   },
   {
     "id": 5,
@@ -42,7 +42,7 @@
     "description": "A popular science fiction story for young readers with imagination and adventure.",
     "category": "Science",
     "available_quantity": 10,
-    "image_url": "https://example.com/ami-topu.jpg"
+    "image_url": "https://baatighar.com/web/image/product.product/15114/image_1024"
   },
   {
     "id": 6,
@@ -51,7 +51,7 @@
     "description": "A collection of thrilling science fiction stories filled with innovation and curiosity.",
     "category": "Science",
     "available_quantity": 8,
-    "image_url": "https://example.com/shanku.jpg"
+    "image_url": "https://deys-publishing.blr1.digitaloceanspaces.com/PzIpq4vcsCoriginal_1727939505.jpeg"
   },
   {
     "id": 7,
@@ -60,7 +60,7 @@
     "description": "A dramatic depiction of the historical struggle and cultural identity.",
     "category": "Story",
     "available_quantity": 3,
-    "image_url": "https://example.com/roktoakta-prantor.jpg"
+    "image_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRylQAMBJMpIIyZu0_mAvzCQx8IPOlwXnB7_Q&s"
   },
   {
     "id": 8,
@@ -69,7 +69,7 @@
     "description": "An introduction to basic computing concepts and problem-solving techniques.",
     "category": "Tech",
     "available_quantity": 12,
-    "image_url": "https://example.com/computer-fundamentals.jpg"
+    "image_url": "https://rokbucket.rokomari.io/ProductNew20190903/260X372/142aa9743_124908.jpg"
   },
   {
     "id": 9,
@@ -78,7 +78,7 @@
     "description": "Insights into the technological transformation and digital development of Bangladesh.",
     "category": "Tech",
     "available_quantity": 9,
-    "image_url": "https://example.com/digital-bd.jpg"
+    "image_url": "https://www.albd.org/media/filer_public/4b/6b/4b6b5e0d-3679-415e-b629-c9c8b2ffb499/02-02-2021-ict.jpeg"
   },
   {
     "id": 10,
@@ -87,7 +87,7 @@
     "description": "A novel exploring the beauty of forests and the relationship between humans and nature.",
     "category": "Story",
     "available_quantity": 5,
-    "image_url": "https://example.com/aranyak.jpg"
+    "image_url": "https://pbs.com.bd/_next/image?url=https%3A%2F%2Ffs.pbs.com.bd%2FDIR%2FCom%2FPBS%2FProduct%2FImageDetails%2F2404334.jpg&w=640&q=75"
   },
   {
     "id": 11,
@@ -96,7 +96,7 @@
     "description": "A collection of detective stories featuring the famous Bengali sleuth Feluda.",
     "category": "Story",
     "available_quantity": 11,
-    "image_url": "https://example.com/feluda.jpg"
+    "image_url": "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1357203841i/244524.jpg"
   },
   {
     "id": 12,
@@ -105,6 +105,6 @@
     "description": "An accessible introduction to fundamental concepts in quantum physics.",
     "category": "Science",
     "available_quantity": 6,
-    "image_url": "https://example.com/quantum.jpg"
+    "image_url": "https://m.media-amazon.com/images/I/71b8cOIVY3L._AC_UF1000,1000_QL80_.jpg"
   }
 ]
