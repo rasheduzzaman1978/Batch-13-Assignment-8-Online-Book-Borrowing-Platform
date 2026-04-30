@@ -25,71 +25,74 @@ export default function CustomNavbar({ user, handleLogout }) {
   ];
 
   return (
-    <div className="w-full shadow bg-white sticky top-0 z-50">
-      
-      {/* 🔹 Navbar Top */}
-      <Navbar maxWidth="xl">
+    <div className="w-full shadow bg-gray-900 sticky top-0 z-50">
 
-  {/* 🔹 Left → Logo */}
-  <NavbarContent justify="start">
-    <NavbarBrand>
-      <Link href="/" className="font-bold text-xl">
-        📚 BookNest
-      </Link>
-    </NavbarBrand>
-  </NavbarContent>
+      {/* 🔹 Navbar */}
+      <Navbar maxWidth="full" className="px-6 py-3">
 
-  {/* 🔹 Center → Desktop Menu */}
-  <NavbarContent className="hidden md:flex gap-8" justify="center">
-    {navLinks.map((link) => (
-      <NavbarItem key={link.path}>
-        <Link
-          href={link.path}
-          className={`${
-            pathname === link.path
-              ? "text-primary font-semibold border-b-2 border-primary"
-              : "text-gray-600 hover:text-primary"
-          }`}
+        {/* 🔹 Left → Logo */}
+        <NavbarContent justify="start" className="flex-1">
+          <NavbarBrand>
+            <Link href="/" className="font-bold text-xl text-white">
+              📚 BookNest
+            </Link>
+          </NavbarBrand>
+        </NavbarContent>
+
+        {/* 🔹 Center → Menu */}
+        <NavbarContent
+          justify="center"
+          className="hidden md:flex flex-1 gap-8"
         >
-          {link.name}
-        </Link>
-      </NavbarItem>
-    ))}
-  </NavbarContent>
+          {navLinks.map((link) => (
+            <NavbarItem key={link.path}>
+              <Link
+                href={link.path}
+                className={`transition ${
+                  pathname === link.path
+                    ? "text-white font-semibold border-b-2 border-white-500"
+                    : "text-purple-500 hover:text-primary"
+                }`}
+              >
+                {link.name}
+              </Link>
+            </NavbarItem>
+          ))}
+        </NavbarContent>
 
-  {/* 🔹 Right → Hamburger + Auth */}
-  <NavbarContent justify="end">
+        {/* 🔹 Right → Hamburger + Auth */}
+        <NavbarContent className="flex-1 flex justify-end items-center">
 
-    {/* Mobile Hamburger */}
-    <div className="md:hidden mr-2">
-      <button
-        onClick={() => setIsMenuOpen(!isMenuOpen)}
-        className="text-2xl p-2 rounded-lg hover:bg-gray-100 transition"
-      >
-        {isMenuOpen ? <FaTimes /> : <FaBars />}
-      </button>
-    </div>
+          {/* Mobile Hamburger */}
+          <div className="md:hidden mr-2">
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="text-2xl p-2 rounded-lg hover:bg-gray-100 transition"
+            >
+              {isMenuOpen ? <FaTimes /> : <FaBars />}
+            </button>
+          </div>
 
-    {/* Desktop Login */}
-    <div className="hidden md:block">
-      {!user ? (
-        <Link href="/login">
-          <Button color="primary" variant="flat">
-            Login
-          </Button>
-        </Link>
-      ) : (
-        <Button color="danger" variant="flat" onClick={handleLogout}>
-          Logout
-        </Button>
-      )}
-    </div>
+          {/* Desktop Login */}
+          <div className="hidden md:block">
+            {!user ? (
+              <Link href="/login">
+                <Button color="primary" variant="flat" className="hover:bg-blue-500 text-pink-500">
+                  Login
+                </Button>
+              </Link>
+            ) : (
+              <Button color="danger" variant="flat" onClick={handleLogout}>
+                Logout
+              </Button>
+            )}
+          </div>
 
-  </NavbarContent>
+        </NavbarContent>
 
-</Navbar>
+      </Navbar>
 
-      {/* 🔻 Mobile Dropdown Menu (FIXED) */}
+      {/* 🔻 Mobile Menu */}
       {isMenuOpen && (
         <div className="md:hidden bg-white border-t shadow px-6 py-4 space-y-3">
 

@@ -4,22 +4,23 @@ import Navbar from "@/components/Navbar";
 
 export const metadata = {
   title: "Online-Book-Borrowing-Platform",
-  description: "An online platform that allows users to browse, borrow, and manage books efficiently with a seamless digital experience.",
+  description:
+    "An online platform that allows users to browse, borrow, and manage books efficiently with a seamless digital experience.",
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className="min-h-screen flex flex-col">
-        
-        {/* Navbar */}
+
         <Navbar />
 
-        {/* Page Content */}
         <main className="flex-grow">
           {children}
         </main>
-        <Footer></Footer>
+
+        <Footer />
+
       </body>
     </html>
   );
