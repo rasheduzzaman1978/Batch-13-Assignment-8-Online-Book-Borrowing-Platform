@@ -1,6 +1,7 @@
 import Footer from "@/components/Footer";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
+import BreakingNews from "@/components/BreakingNews";
 
 export const metadata = {
   title: "Online-Book-Borrowing-Platform",
@@ -14,6 +15,7 @@ export default function RootLayout({ children }) {
       <body className="min-h-screen flex flex-col">
 
         <Navbar />
+        <BreakingNews />
 
         <main className="flex-grow">
           {children}
