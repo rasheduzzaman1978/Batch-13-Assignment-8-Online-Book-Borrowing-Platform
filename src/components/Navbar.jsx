@@ -12,9 +12,10 @@ import {
   NavbarItem,
 } from "@heroui/navbar";
 
-import { Button } from "@heroui/react";
+import { Avatar, Button } from "@heroui/react";
+import { authClient } from "@/lib/auth-client";
 
-export default function CustomNavbar({ user, handleLogout }) {
+export default function CustomNavbar() {
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -22,15 +23,26 @@ export default function CustomNavbar({ user, handleLogout }) {
     { name: "Home", path: "/" },
     { name: "All Books", path: "/books" },
     { name: "My Profile", path: "/profile" },
-    { name: "About", path: "/about" },
   ];
 
+  const userData = authClient.useSession();
+  const user = userData.data?.user;
+
+  const handleLogout = async () => {
+    await authClient.signOut();
+    window.location.href = "/";
+  };
+
+  const avatarSrc =
+  [user?.image, user?.image_url, user?.imageUrl, user?.photoURL]
+    .find((img) => img && img.trim() !== "") ||
+  "https://i.pravatar.cc/150?img=3";
+  
   return (
     <div className="w-full shadow bg-gray-900 text-white sticky top-0 z-50">
-
       <Navbar maxWidth="full" className="px-6 py-3 bg-gray-900">
 
-        {/* 🔹 Left → Logo */}
+        {/* Left → Logo */}
         <NavbarContent justify="start" className="flex-1">
           <NavbarBrand>
             <Link href="/" className="font-bold text-xl text-white">
@@ -39,11 +51,8 @@ export default function CustomNavbar({ user, handleLogout }) {
           </NavbarBrand>
         </NavbarContent>
 
-        {/* 🔹 Center → Menu */}
-        <NavbarContent
-          justify="center"
-          className="hidden md:flex flex-1 gap-8"
-        >
+        {/* Center → Menu */}
+        <NavbarContent justify="center" className="hidden md:flex flex-1 gap-8">
           {navLinks.map((link) => {
             const isActive = pathname === link.path;
 
@@ -59,7 +68,6 @@ export default function CustomNavbar({ user, handleLogout }) {
                 >
                   {link.name}
 
-                  {/* Active underline */}
                   {isActive && (
                     <span className="absolute left-0 -bottom-1 w-full h-[2px] bg-blue-500 rounded"></span>
                   )}
@@ -69,7 +77,7 @@ export default function CustomNavbar({ user, handleLogout }) {
           })}
         </NavbarContent>
 
-        {/* 🔹 Right → Hamburger + Auth */}
+        {/* Right → Auth */}
         <NavbarContent className="flex-1 flex justify-end items-center">
 
           {/* Mobile Hamburger */}
@@ -85,33 +93,42 @@ export default function CustomNavbar({ user, handleLogout }) {
           {/* Desktop Auth */}
           <div className="hidden md:block">
             {!user ? (
-              <Link href="/login">
-                <Button 
-                  color="primary"
-                  className="bg-blue-600 hover:bg-blue-700 text-white"
-                >
-                  Login
-                </Button>
-              </Link>
+              <ul className="flex items-center gap-4">
+                <li>
+                  <Link href="/login">
+                    <Button className="bg-blue-600 hover:bg-blue-700 text-white">
+                      Login
+                    </Button>
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/register">
+                    <Button className="bg-gray-700 hover:bg-gray-800 text-white">
+                      Sign Up
+                    </Button>
+                  </Link>
+                </li>
+              </ul>
             ) : (
-              <Button
-                color="danger"
-                variant="flat"
-                onClick={handleLogout}
-              >
-                Logout
-              </Button>
+              <div className="flex items-center gap-4">
+                <Avatar
+                  src={avatarSrc}
+                  name={user?.name}
+                />
+                <span className="text-gray-300">{user?.name}</span>
+                <Button variant="danger" color="danger" onClick={handleLogout}>
+                  Logout
+                </Button>
+              </div>
             )}
           </div>
 
         </NavbarContent>
-
       </Navbar>
 
-      {/* 🔻 Mobile Menu */}
+      {/* Mobile Menu */}
       {isMenuOpen && (
         <div className="md:hidden bg-gray-900 text-white border-t border-gray-700 px-6 py-4 space-y-3">
-
           {navLinks.map((link) => {
             const isActive = pathname === link.path;
 
@@ -135,9 +152,7 @@ export default function CustomNavbar({ user, handleLogout }) {
 
           {!user ? (
             <Link href="/login" onClick={() => setIsMenuOpen(false)}>
-              <Button
-                className="w-full bg-blue-600 hover:bg-blue-700 text-white"
-              >
+              <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white">
                 Login
               </Button>
             </Link>
@@ -153,7 +168,6 @@ export default function CustomNavbar({ user, handleLogout }) {
               Logout
             </Button>
           )}
-
         </div>
       )}
     </div>

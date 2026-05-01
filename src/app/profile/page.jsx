@@ -1,61 +1,60 @@
 "use client";
 
-import { UpdateUserModal } from "@/components/UpdateUserModal";
+import UpdateUserModal from "@/components/UpdateUserModal";
 import { authClient } from "@/lib/auth-client";
 import { Avatar, Card } from "@heroui/react";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { redirect } from "next/navigation";
 
-export default function ProfilePage() {
-  const userData = authClient.useSession();
-  const user = userData.data?.user;
-  const router = useRouter();
+const ProfilePage = () => {
+  const { data: session, isPending } = authClient.useSession();
+  const user = session?.user;
 
-  // 🔐 Redirect if not logged in
-  useEffect(() => {
-    if (!userData.isPending && !user) {
-      router.push("/login");
-    }
-  }, [userData.isPending, user]);
-
-  // ⏳ Loading state
-  if (userData.isPending) {
+  if (isPending) {
     return (
-      <p className="text-center mt-10 text-gray-500">
-        Loading profile...
-      </p>
+      <div className="flex justify-center items-center h-screen bg-gray-50">
+        <p className="animate-pulse font-medium text-gray-500">Loading...</p>
+      </div>
     );
   }
 
-  // ❌ If no user
   if (!user) {
-    return null;
+    redirect('/signin');
   }
 
   return (
-    <div className="flex justify-center items-center min-h-[70vh] px-4">
-      <Card className="w-full max-w-md p-6 flex flex-col items-center gap-4 shadow-lg rounded-xl">
+    <div className="min-h-[80vh] flex items-center justify-center p-4">
+      {/* মূল কার্ড ডিজাইন */}
+      <Card className="w-full max-w-[420px] border border-gray-100 shadow-sm bg-white rounded-[2.5rem] p-10 overflow-visible">
+        <div className="flex flex-col items-center">
+          
+          {/* প্রোফাইল ইমেজ */}
+          <div className="mb-4">
+            <Avatar
+              src={user?.image || null} 
+              className="w-24 h-24 text-xl ring-4 ring-gray-50"
+              name={user?.name?.charAt(0) || "U"}
+            />
+          </div>
 
-        {/* 🧑 Avatar */}
-        <Avatar
-          src={user.image || ""}
-          name={user.name || "User"}
-          className="w-24 h-24 text-large"
-        />
+          {/* ইউজার ইনফরমেশন */}
+          <div className="text-center mb-8">
+            <h1 className="text-2xl font-bold text-gray-900 mb-1">
+              {user?.name || "R"} 
+            </h1>
+            <p className="text-gray-500 text-base">
+              {user?.email}
+            </p>
+          </div>
 
-        {/* 👤 User Info */}
-        <h2 className="text-xl font-bold text-center">
-          {user.name || "Unknown User"}
-        </h2>
+          {/* আপডেট মোডাল কম্পোনেন্ট */}
+          <div className="w-full flex justify-center">
+            <UpdateUserModal user={user} />
+          </div>
 
-        <p className="text-gray-500 text-center">
-          {user.email}
-        </p>
-
-        {/* ✏️ Update Button */}
-        <UpdateUserModal />
-
+        </div>
       </Card>
     </div>
   );
-}
+};
+
+export default ProfilePage;

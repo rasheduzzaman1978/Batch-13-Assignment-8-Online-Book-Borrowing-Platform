@@ -12,21 +12,22 @@ export default function BookDetailsPage() {
   const { id } = useParams();
   const router = useRouter();
 
-  const userData = authClient.useSession();
-  const user = userData.data?.user;
+  // ✅ clean session handling
+  const { data, isPending } = authClient.useSession();
+  const user = data?.user;
 
   const book = books.find((b) => b.id === Number(id));
 
   // 🔐 Private Route
   useEffect(() => {
-    if (!userData.isPending && !user) {
+    if (!isPending && !user) {
       toast.error("Please login to view this page 🔐");
       router.push(`/login?redirect=/books/${id}`);
     }
-  }, [userData.isPending, user]);
+  }, [isPending, user, id, router]);
 
   // ⏳ Loading
-  if (userData.isPending) {
+  if (isPending) {
     return <p className="text-center mt-10">Loading...</p>;
   }
 
@@ -55,6 +56,7 @@ export default function BookDetailsPage() {
             alt={book.title}
             fill
             className="object-cover rounded"
+            unoptimized   // ✅ important fix
           />
         </div>
 

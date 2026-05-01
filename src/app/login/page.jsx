@@ -6,9 +6,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { FaGoogle, FaEye, FaEyeSlash } from "react-icons/fa";
 import { toast } from "react-toastify";
-import { createAuthClient } from "better-auth/react";
-
-const authClient = createAuthClient();
+import { authClient } from "@/lib/auth-client"; // ✅ FIXED
 
 export default function LoginPage() {
   const router = useRouter();
@@ -42,7 +40,7 @@ export default function LoginPage() {
     return Object.keys(newErrors).length === 0;
   };
 
-  // 🔐 Login
+  // 🔐 Login (ONLY handler)
   const handleLogin = async (e) => {
     e.preventDefault();
 
@@ -63,7 +61,10 @@ export default function LoginPage() {
         toast.error(res.error.message || "Login failed");
       } else {
         toast.success("Login successful 🎉");
-        router.push("/");
+
+        // ✅ IMPORTANT FIX
+        router.replace("/");
+        router.refresh(); // 🔥 navbar instantly update হবে
       }
     } catch (err) {
       toast.error("Something went wrong");
@@ -86,7 +87,7 @@ export default function LoginPage() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
       <Card className="w-full max-w-md p-8 shadow-xl rounded-2xl bg-white">
-        
+
         <h2 className="text-2xl font-bold text-center mb-6 text-gray-800">
           Welcome Back! Please Login
         </h2>
@@ -96,42 +97,36 @@ export default function LoginPage() {
           {/* Email */}
           <div>
             <label className="text-sm text-gray-600">
-              Email <span className="text-red-500 font-bold">*</span>
+              Email <span className="text-red-500">*</span>
             </label>
             <input
               type="email"
               value={form.email}
               placeholder="Enter your email"
-              className={`w-full border rounded-lg px-3 py-2 mt-1 focus:outline-none ${
-                errors.email
-                  ? "border-red-500"
-                  : "focus:border-blue-500"
+              className={`w-full border rounded-lg px-3 py-2 mt-1 ${
+                errors.email ? "border-red-500" : "focus:border-blue-500"
               }`}
               onChange={(e) =>
                 setForm({ ...form, email: e.target.value })
               }
             />
             {errors.email && (
-              <p className="text-red-500 text-sm mt-1">
-                {errors.email}
-              </p>
+              <p className="text-red-500 text-sm">{errors.email}</p>
             )}
           </div>
 
           {/* Password */}
           <div className="relative">
             <label className="text-sm text-gray-600">
-              Password <span className="text-red-500 font-bold">*</span>
+              Password <span className="text-red-500">*</span>
             </label>
 
             <input
               type={showPassword ? "text" : "password"}
               value={form.password}
               placeholder="Enter your password"
-              className={`w-full border rounded-lg px-3 py-2 mt-1 pr-10 focus:outline-none ${
-                errors.password
-                  ? "border-red-500"
-                  : "focus:border-blue-500"
+              className={`w-full border rounded-lg px-3 py-2 mt-1 pr-10 ${
+                errors.password ? "border-red-500" : "focus:border-blue-500"
               }`}
               onChange={(e) =>
                 setForm({ ...form, password: e.target.value })
@@ -147,13 +142,11 @@ export default function LoginPage() {
             </button>
 
             {errors.password && (
-              <p className="text-red-500 text-sm mt-1">
-                {errors.password}
-              </p>
+              <p className="text-red-500 text-sm">{errors.password}</p>
             )}
           </div>
 
-          {/* Login Button */}
+          {/* ✅ FIXED Button */}
           <Button
             type="submit"
             disabled={loading}
@@ -171,23 +164,15 @@ export default function LoginPage() {
           <div className="flex-1 h-px bg-gray-300"></div>
         </div>
 
-        {/* ✅ Fixed Google Login */}
+        {/* Google Login */}
         <Button
           onClick={handleGoogleLogin}
-          className="w-full flex items-center justify-center gap-2 
-                     bg-white 
-                     text-gray-700
-                     border border-gray-300 
-                     hover:bg-gray-200 
-                     hover:shadow-md 
-                     active:scale-[0.98]
-                     transition-all duration-200"
+          className="w-full flex items-center justify-center gap-2 border"
         >
-          <FaGoogle className="text-red-500" />
+          <FaGoogle />
           Continue with Google
         </Button>
 
-        {/* Register */}
         <p className="text-center mt-5 text-sm text-gray-600">
           Don’t have an account?{" "}
           <Link href="/register" className="text-blue-600 hover:underline">

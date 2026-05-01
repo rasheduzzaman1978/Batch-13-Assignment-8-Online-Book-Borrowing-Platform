@@ -5,6 +5,7 @@ import BreakingNews from "@/components/BreakingNews";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+
 export const metadata = {
   title: "Online-Book-Borrowing-Platform",
   description:
@@ -15,7 +16,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className="min-h-screen flex flex-col bg-gray-50">
-
+          
         <NavbarWrapper />
         <BreakingNews />
 
@@ -30,7 +31,7 @@ export default function RootLayout({ children }) {
           autoClose={1500}
           theme="colored"
         />
-
+         
       </body>
     </html>
   );
