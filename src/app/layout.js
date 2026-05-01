@@ -2,7 +2,8 @@ import Footer from "@/components/Footer";
 import "./globals.css";
 import NavbarWrapper from "@/components/NavbarWrapper";
 import BreakingNews from "@/components/BreakingNews";
-import Providers from "@/components/Providers"; // 👈 add this
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export const metadata = {
   title: "Online-Book-Borrowing-Platform",
@@ -13,19 +14,22 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className="min-h-screen flex flex-col">
+      <body className="min-h-screen flex flex-col bg-gray-50">
 
-        {/* ✅ Wrap everything with SessionProvider */}
-        <Providers>
-          <NavbarWrapper />
-          <BreakingNews />
+        <NavbarWrapper />
+        <BreakingNews />
 
-          <main className="flex-grow">
-            {children}
-          </main>
+        <main className="flex-grow">
+          {children}
+        </main>
 
-          <Footer />
-        </Providers>
+        <Footer />
+
+        <ToastContainer
+          position="top-center"
+          autoClose={1500}
+          theme="colored"
+        />
 
       </body>
     </html>

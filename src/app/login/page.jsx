@@ -6,6 +6,9 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { FaGoogle, FaEye, FaEyeSlash } from "react-icons/fa";
 import { toast } from "react-toastify";
+import { createAuthClient } from "better-auth/react";
+
+const authClient = createAuthClient();
 
 export default function LoginPage() {
   const router = useRouter();
@@ -39,6 +42,7 @@ export default function LoginPage() {
     return Object.keys(newErrors).length === 0;
   };
 
+  // 🔐 BetterAuth login
   const handleLogin = async (e) => {
     e.preventDefault();
 
@@ -50,19 +54,16 @@ export default function LoginPage() {
     setLoading(true);
 
     try {
-      const res = await fetch("/api/auth/sign-in/email", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(form),
+      const res = await authClient.signIn.email({
+        email: form.email,
+        password: form.password,
       });
 
-      if (res.ok) {
+      if (res?.error) {
+        toast.error(res.error.message || "Login failed");
+      } else {
         toast.success("Login successful 🎉");
         router.push("/");
-      } else {
-        toast.error("Invalid email or password");
       }
     } catch (err) {
       toast.error("Something went wrong");
@@ -71,12 +72,19 @@ export default function LoginPage() {
     setLoading(false);
   };
 
-  const handleGoogleLogin = () => {
-    window.location.href = "/api/auth/sign-in/google";
+  // 🔐 Google login (BetterAuth way)
+  const handleGoogleLogin = async () => {
+    try {
+      await authClient.signIn.social({
+        provider: "google",
+      });
+    } catch (err) {
+      toast.error("Google login failed");
+    }
   };
 
   return (
-    <div className="min-h-[70%] flex items-center justify-center bg-gray-100 px-4">
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
 
       <Card className="w-full max-w-md p-8 shadow-xl rounded-2xl bg-white">
 
@@ -113,7 +121,6 @@ export default function LoginPage() {
               }
             />
 
-            {/* 👁️ Toggle */}
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
@@ -145,7 +152,7 @@ export default function LoginPage() {
           <div className="flex-1 h-px bg-gray-300"></div>
         </div>
 
-        {/* Google */}
+        {/* Google Login */}
         <Button
           onClick={handleGoogleLogin}
           className="w-full flex items-center justify-center gap-2 border border-gray-300 hover:bg-gray-100"

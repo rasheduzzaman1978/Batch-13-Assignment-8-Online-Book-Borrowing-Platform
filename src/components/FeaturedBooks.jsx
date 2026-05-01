@@ -9,7 +9,7 @@ export default function FeaturedBooks() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("/books.json")
+    fetch("../data/books.json")
       .then((res) => res.json())
       .then((data) => {
         setBooks(data.slice(0, 4));

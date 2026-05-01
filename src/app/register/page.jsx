@@ -6,6 +6,9 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { toast } from "react-toastify";
+import { createAuthClient } from "better-auth/react";
+
+const authClient = createAuthClient();
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -43,6 +46,7 @@ export default function RegisterPage() {
     return Object.keys(newErrors).length === 0;
   };
 
+  // 🔐 BetterAuth Register
   const handleRegister = async (e) => {
     e.preventDefault();
 
@@ -54,19 +58,18 @@ export default function RegisterPage() {
     setLoading(true);
 
     try {
-      const res = await fetch("/api/auth/sign-up/email", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(form),
+      const res = await authClient.signUp.email({
+        email: form.email,
+        password: form.password,
+        name: form.name,
+        image: form.image || undefined,
       });
 
-      if (res.ok) {
+      if (res?.error) {
+        toast.error(res.error.message || "Registration failed");
+      } else {
         toast.success("Registration successful 🎉");
         router.push("/login");
-      } else {
-        toast.error("Registration failed");
       }
     } catch (err) {
       toast.error("Something went wrong");
@@ -76,8 +79,7 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="min-h-[70%] flex items-center justify-center bg-gray-100 px-4">
-
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
       <Card className="w-full max-w-md p-8 shadow-xl rounded-2xl bg-white">
 
         <h2 className="text-2xl font-bold text-center mb-6 text-gray-800">
@@ -140,7 +142,7 @@ export default function RegisterPage() {
               }
             />
 
-            {/* 👁️ Toggle */}
+            {/* toggle icon */}
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}

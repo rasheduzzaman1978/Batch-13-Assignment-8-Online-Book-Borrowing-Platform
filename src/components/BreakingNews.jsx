@@ -8,7 +8,7 @@ export default function BreakingNews() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("/books.json")
+    fetch("../data/books.json")
       .then((res) => res.json())
       .then((data) => {
         const bookTitles = data.slice(0, 6);

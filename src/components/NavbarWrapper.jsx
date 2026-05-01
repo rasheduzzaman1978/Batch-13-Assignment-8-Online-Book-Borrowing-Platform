@@ -1,18 +1,20 @@
 "use client";
 
 import Navbar from "@/components/Navbar";
-import { useSession, signOut } from "next-auth/react";
+import { createAuthClient } from "better-auth/react";
+
+const authClient = createAuthClient();
 
 export default function NavbarWrapper() {
-  const { data: session } = useSession();
+  const session = authClient.useSession();
 
   const handleLogout = async () => {
-    await signOut({ callbackUrl: "/login" });
+    await authClient.signOut();
   };
 
   return (
     <Navbar
-      user={session?.user}
+      user={session?.data?.user}
       handleLogout={handleLogout}
     />
   );
