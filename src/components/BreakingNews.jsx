@@ -2,20 +2,16 @@
 
 import { useEffect, useState } from "react";
 import Marquee from "react-fast-marquee";
+import books from "@/data/books.json";
 
 export default function BreakingNews() {
   const [titles, setTitles] = useState([]);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("../data/books.json")
-      .then((res) => res.json())
-      .then((data) => {
-        const bookTitles = data.slice(0, 6);
-        setTitles(bookTitles);
-        setLoading(false);
-      })
-      .catch(() => setLoading(false));
+    const bookTitles = books.slice(0, 6);
+
+    // 🔥 Duplicate data for smooth loop
+    setTitles([...bookTitles, ...bookTitles, ...bookTitles]);
   }, []);
 
   return (
@@ -28,25 +24,22 @@ export default function BreakingNews() {
 
       {/* Marquee */}
       <div className="flex-1 overflow-hidden">
-        <Marquee speed={50} gradient={false} pauseOnHover>
+        <Marquee speed={60} gradient={false} pauseOnHover>
 
-          {loading ? (
-            <span className="mx-6">Loading books...</span>
-          ) : (
-            <>
-              {/* 📚 Titles */}
-              {titles.map((book) => (
-                <span key={book.id} className="mx-6 hover:underline cursor-pointer">
-                  📚 {book.title}
-                </span>
-              ))}
+          {/* 📚 Titles */}
+          {titles.map((book, index) => (
+            <span
+              key={index}
+              className="mx-6 hover:underline cursor-pointer whitespace-nowrap"
+            >
+              📚 {book.title}
+            </span>
+          ))}
 
-              {/* 🔥 Extra message */}
-              <span className="mx-6 text-yellow-400 font-semibold">
-                🔥 Special Discount on Memberships | Join Now & Save 30%
-              </span>
-            </>
-          )}
+          {/* 🔥 Extra message */}
+          <span className="mx-6 text-yellow-400 font-semibold whitespace-nowrap">
+            🔥 Special Discount on Memberships | Join Now & Save 30%
+          </span>
 
         </Marquee>
       </div>

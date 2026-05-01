@@ -8,10 +8,12 @@ import { Input, Card, Button } from "@heroui/react";
 
 export default function AllBooksPage() {
   const [search, setSearch] = useState("");
+  const [tempSearch, setTempSearch] = useState("");
   const [category, setCategory] = useState("All");
 
   const categories = ["All", "Story", "Tech", "Science"];
 
+  // 🔍 Apply filter
   const filteredBooks = books.filter((book) => {
     const matchSearch = book.title
       .toLowerCase()
@@ -23,18 +25,32 @@ export default function AllBooksPage() {
     return matchSearch && matchCategory;
   });
 
+  // 🔎 Search button click
+  const handleSearch = () => {
+    setSearch(tempSearch);
+  };
+
   return (
-    <div className="max-w-7xl mx-auto px-4 py-10">
+    <div className="max-w-7xl mx-auto px-4 py-6 md:py-10">
 
-      {/* 🔍 Search */}
-      <Input
-        size="lg"
-        placeholder="Search books..."
-        className="mb-8"
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-      />
+      {/* 🔍 Search Box + Button */}
+      <div className="flex gap-3 mb-8">
+        <Input
+          size="lg"
+          placeholder="Search books..."
+          value={tempSearch}
+          onChange={(e) => setTempSearch(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") handleSearch();
+          }}
+        />
 
+        <Button color="primary" onClick={handleSearch}>
+          Search
+        </Button>
+      </div>
+
+      {/* 🧭 Categories & Books */}
       <div className="grid md:grid-cols-4 gap-6">
 
         {/* 🧭 Sidebar */}
@@ -67,7 +83,7 @@ export default function AllBooksPage() {
               {filteredBooks.map((book) => (
                 <Card key={book.id} className="p-4">
 
-                  <div className="relative w-full h-40">
+                  <div className="relative w-full h-32 md:h-40">
                     <Image
                       src={book.image_url}
                       alt={book.title}
@@ -76,7 +92,7 @@ export default function AllBooksPage() {
                     />
                   </div>
 
-                  <h3 className="mt-3 font-semibold">
+                  <h3 className="mt-3 font-semibold text-justify">
                     {book.title}
                   </h3>
 

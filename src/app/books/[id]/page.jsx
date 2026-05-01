@@ -20,6 +20,7 @@ export default function BookDetailsPage() {
   // 🔐 Private Route
   useEffect(() => {
     if (!userData.isPending && !user) {
+      toast.error("Please login to view this page 🔐");
       router.push(`/login?redirect=/books/${id}`);
     }
   }, [userData.isPending, user]);
@@ -65,7 +66,7 @@ export default function BookDetailsPage() {
             By {book.author}
           </p>
 
-          <p className="mt-4 text-sm">
+          <p className="mt-4 text-sm text-justify">
             {book.description}
           </p>
 
@@ -82,9 +83,12 @@ export default function BookDetailsPage() {
           <Button
             color="primary"
             className="mt-6 w-full"
+            disabled={book.available_quantity === 0}
             onClick={handleBorrow}
           >
-            Borrow This Book
+            {book.available_quantity === 0
+              ? "Out of Stock"
+              : "Borrow This Book"}
           </Button>
         </div>
 

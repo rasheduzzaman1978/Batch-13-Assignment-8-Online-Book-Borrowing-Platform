@@ -10,9 +10,9 @@ const categories = [
 
 export default function Categories() {
   return (
-    <section className="py-16 bg-white text-center">
+    <section className="py-8 md:py-10 lg:py-16 bg-white text-center">
 
-      <h2 className="text-3xl font-bold mb-10">
+      <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-10">
         Browse by Category 📂
       </h2>
 
@@ -21,7 +21,7 @@ export default function Categories() {
         {categories.map((cat) => (
           <Link key={cat.name} href={`/books?category=${cat.name}`}>
             <div
-              className={`${cat.color} text-white px-10 py-6 rounded-xl shadow-md hover:scale-105 transition cursor-pointer`}
+              className={`${cat.color} text-white px-3 md:px-10 py-2 md:py-6 rounded-xl shadow-md hover:scale-105 transition cursor-pointer`}
             >
               <h3 className="text-xl font-semibold">
                 {cat.name}
