@@ -46,7 +46,7 @@ export default function RegisterPage() {
     return Object.keys(newErrors).length === 0;
   };
 
-  // 🔐 BetterAuth Register
+  // 🔐 Register
   const handleRegister = async (e) => {
     e.preventDefault();
 
@@ -90,24 +90,34 @@ export default function RegisterPage() {
 
           {/* Name */}
           <div>
-            <label className="text-sm text-gray-600">Name</label>
+            <label className="text-sm text-gray-600">
+              Name <span className="text-red-500 font-bold">*</span>
+            </label>
             <input
               type="text"
-              className="w-full border rounded-lg px-3 py-2 mt-1 focus:outline-none focus:border-blue-500"
+              value={form.name}
+              placeholder="Enter your name"
+              className={`w-full border rounded-lg px-3 py-2 mt-1 focus:outline-none ${
+                errors.name ? "border-red-500" : "focus:border-blue-500"
+              }`}
               onChange={(e) =>
                 setForm({ ...form, name: e.target.value })
               }
             />
             {errors.name && (
-              <p className="text-red-500 text-sm">{errors.name}</p>
+              <p className="text-red-500 text-sm mt-1">{errors.name}</p>
             )}
           </div>
 
           {/* Photo */}
           <div>
-            <label className="text-sm text-gray-600">Photo URL</label>
+            <label className="text-sm text-gray-600">
+              Photo URL
+            </label>
             <input
               type="text"
+              value={form.image}
+              placeholder="https://example.com/photo.jpg"
               className="w-full border rounded-lg px-3 py-2 mt-1 focus:outline-none focus:border-blue-500"
               onChange={(e) =>
                 setForm({ ...form, image: e.target.value })
@@ -117,32 +127,43 @@ export default function RegisterPage() {
 
           {/* Email */}
           <div>
-            <label className="text-sm text-gray-600">Email</label>
+            <label className="text-sm text-gray-600">
+              Email <span className="text-red-500 font-bold">*</span>
+            </label>
             <input
               type="email"
-              className="w-full border rounded-lg px-3 py-2 mt-1 focus:outline-none focus:border-blue-500"
+              value={form.email}
+              placeholder="john@example.com"
+              className={`w-full border rounded-lg px-3 py-2 mt-1 focus:outline-none ${
+                errors.email ? "border-red-500" : "focus:border-blue-500"
+              }`}
               onChange={(e) =>
                 setForm({ ...form, email: e.target.value })
               }
             />
             {errors.email && (
-              <p className="text-red-500 text-sm">{errors.email}</p>
+              <p className="text-red-500 text-sm mt-1">{errors.email}</p>
             )}
           </div>
 
           {/* Password */}
           <div className="relative">
-            <label className="text-sm text-gray-600">Password</label>
+            <label className="text-sm text-gray-600">
+              Password <span className="text-red-500 font-bold">*</span>
+            </label>
 
             <input
               type={showPassword ? "text" : "password"}
-              className="w-full border rounded-lg px-3 py-2 mt-1 pr-10 focus:outline-none focus:border-blue-500"
+              value={form.password}
+              placeholder="••••••••"
+              className={`w-full border rounded-lg px-3 py-2 mt-1 pr-10 focus:outline-none ${
+                errors.password ? "border-red-500" : "focus:border-blue-500"
+              }`}
               onChange={(e) =>
                 setForm({ ...form, password: e.target.value })
               }
             />
 
-            {/* toggle icon */}
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
@@ -152,7 +173,9 @@ export default function RegisterPage() {
             </button>
 
             {errors.password && (
-              <p className="text-red-500 text-sm">{errors.password}</p>
+              <p className="text-red-500 text-sm mt-1">
+                {errors.password}
+              </p>
             )}
           </div>
 

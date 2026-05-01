@@ -5,6 +5,7 @@ import books from "@/data/books.json";
 import Link from "next/link";
 import Image from "next/image";
 import { Input, Card, Button } from "@heroui/react";
+import { FaSearch } from "react-icons/fa";
 
 export default function AllBooksPage() {
   const [search, setSearch] = useState("");
@@ -34,21 +35,31 @@ export default function AllBooksPage() {
     <div className="max-w-7xl mx-auto px-4 py-6 md:py-10">
 
       {/* 🔍 Search Box + Button */}
-      <div className="flex gap-3 mb-8">
-        <Input
-          size="lg"
-          placeholder="Search books..."
-          value={tempSearch}
-          onChange={(e) => setTempSearch(e.target.value)}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") handleSearch();
-          }}
-        />
+      <div className="flex justify-end items-center gap-2 md:gap-3 mb-8">
 
-        <Button color="primary" onClick={handleSearch}>
-          Search
-        </Button>
-      </div>
+  {/* 🔍 Input */}
+  <Input
+    size="sm"
+    placeholder="Search books by title..."
+    value={tempSearch}
+    onChange={(e) => setTempSearch(e.target.value)}
+    onKeyDown={(e) => {
+      if (e.key === "Enter") handleSearch();
+    }}
+    className="flex-1 md:flex-none w-30 md:w-80"
+  />
+
+  {/* 🔘 Button */}
+  <Button 
+    color="primary" 
+    onClick={handleSearch}
+    className="h-9 md:h-10 px-3 md:px-6 flex items-center gap-2"
+  >
+    <FaSearch className="text-[8px] md:text-base" />
+    <span className="">Search</span>
+  </Button>
+
+</div>
 
       {/* 🧭 Categories & Books */}
       <div className="grid md:grid-cols-4 gap-6">
@@ -83,7 +94,7 @@ export default function AllBooksPage() {
               {filteredBooks.map((book) => (
                 <Card key={book.id} className="p-4">
 
-                  <div className="relative w-full h-32 md:h-40">
+                  <div className="relative w-full h-40">
                     <Image
                       src={book.image_url}
                       alt={book.title}
