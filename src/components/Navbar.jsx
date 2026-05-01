@@ -22,6 +22,7 @@ export default function CustomNavbar({ user, handleLogout }) {
     { name: "Home", path: "/" },
     { name: "All Books", path: "/books" },
     { name: "My Profile", path: "/profile" },
+    { name: "About", path: "/about" },
   ];
 
   return (
