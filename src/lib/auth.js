@@ -1,16 +1,16 @@
 import { betterAuth } from "better-auth";
-import { mongodbAdapter } from "@better-auth/mongo-adapter";
 import { MongoClient } from "mongodb";
+import { mongodbAdapter } from "@better-auth/mongo-adapter";
 
 const client = new MongoClient(process.env.MONGODB_URI);
-const clientPromise = client.connect();
+await client.connect(); // সংযোগ স্থাপন
+const db = client.db("onlinebook");
 
 export const auth = betterAuth({
-  database: mongodbAdapter({
-    client: await clientPromise,
-    dbName: "onlinebook",
+  database: mongodbAdapter(db, {
+    client
   }),
-
+  
   emailAndPassword: {
     enabled: true,
   },
@@ -22,4 +22,9 @@ export const auth = betterAuth({
       redirectURI: `${process.env.BETTER_AUTH_URL}/api/auth/callback/google`,
     },
   },
+});
+
+// অ্যাপ্লিকেশন বন্ধ হওয়ার সময় সংযোগ বন্ধ করুন (optional)
+process.on('SIGTERM', async () => {
+  await client.close();
 });
