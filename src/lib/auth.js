@@ -3,14 +3,20 @@ import { MongoClient } from "mongodb";
 import { mongodbAdapter } from "@better-auth/mongo-adapter";
 
 const client = new MongoClient(process.env.MONGODB_URI);
-await client.connect(); // সংযোগ স্থাপন
+await client.connect();
 const db = client.db("onlinebook");
 
 export const auth = betterAuth({
   database: mongodbAdapter(db, {
     client
   }),
-  
+
+  // 🔥 ADD THIS (MOST IMPORTANT)
+  trustedOrigins: [
+    "http://localhost:3000",
+    "https://batch-13-assignment-8-online-book-b.vercel.app"
+  ],
+
   emailAndPassword: {
     enabled: true,
   },
@@ -22,9 +28,13 @@ export const auth = betterAuth({
       redirectURI: `${process.env.BETTER_AUTH_URL}/api/auth/callback/google`,
     },
   },
+
+  // 🔥 recommended
+  secret: process.env.BETTER_AUTH_SECRET,
+  baseURL: process.env.BETTER_AUTH_URL,
 });
 
-// অ্যাপ্লিকেশন বন্ধ হওয়ার সময় সংযোগ বন্ধ করুন (optional)
+// optional
 process.on('SIGTERM', async () => {
   await client.close();
 });
