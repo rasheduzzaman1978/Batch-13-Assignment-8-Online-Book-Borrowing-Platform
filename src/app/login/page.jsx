@@ -88,7 +88,7 @@ export default function LoginPage() {
     <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
       <Card className="w-full max-w-md p-8 shadow-xl rounded-2xl bg-white">
 
-        <h2 className="text-2xl font-bold text-center mb-6 text-gray-800">
+        <h2 className="text-xl md:text-2xl font-bold text-center mb-6 text-gray-800">
           Welcome Back! Please Login
         </h2>
 

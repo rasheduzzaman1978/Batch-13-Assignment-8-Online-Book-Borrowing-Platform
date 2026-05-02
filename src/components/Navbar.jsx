@@ -30,7 +30,7 @@ export default function CustomNavbar() {
 
   const handleLogout = async () => {
     await authClient.signOut();
-    window.location.href = "/";
+    // window.location.href = "/";
   };
 
   return (

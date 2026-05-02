@@ -1,18 +1,27 @@
 import { NextResponse } from "next/server";
 import { auth } from "./lib/auth";
-import { headers } from "next/headers";
 
-// This function can be marked `async` if using `await` inside
 export async function proxy(request) {
   const session = await auth.api.getSession({
-    headers: await headers(),
+    headers: request.headers,
   });
 
-  if (!session) {
-   return NextResponse.redirect(new URL('/login', request.url))
+  const { pathname } = request.nextUrl;
+
+  // 🎯 Match: /books/:id (details page only)
+  const isBookDetails = /^\/books\/[^/]+$/.test(pathname);
+
+  // 🔐 যদি login না থাকে → login page
+  if (!session && isBookDetails) {
+    return NextResponse.redirect(
+      new URL(`/login?redirect=${pathname}`, request.url)
+    );
   }
+
+  return NextResponse.next();
 }
 
+// ✅ সব books route check করবে, কিন্তু logic ভিতরে handle করছি
 export const config = {
-  matcher: ["/profile", "/books/:path*" ],
+  matcher: ["/books/:path*"],
 };
