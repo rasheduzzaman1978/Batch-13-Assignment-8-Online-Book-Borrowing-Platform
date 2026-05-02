@@ -6,31 +6,39 @@ import { Button, Card } from "@heroui/react";
 import Image from "next/image";
 import { toast } from "react-toastify";
 import { authClient } from "@/lib/auth-client";
+import LoadingPage from "@/app/loading/page";
 
 export default function BookDetailsPage() {
-  const { id } = useParams();
   const router = useRouter();
+
+  // ✅ safer params handling
+  const params = useParams();
+  const id = Number(params.id);
 
   // 🔐 session
   const { data, isPending } = authClient.useSession();
   const user = data?.user;
 
   // 📚 find book
-  const book = books.find((b) => b.id === Number(id));
+  const book = books.find((b) => b.id === id);
 
   // ⏳ loading
   if (isPending) {
-    return <p className="text-center mt-10">Loading...</p>;
+    return <LoadingPage />;
   }
 
-  // ❌ book not found
-  if (!book) {
-    return <p className="text-center mt-10">Book not found</p>;
+  // ❌ invalid id বা book না থাকলে
+  if (!id || !book) {
+    return (
+      <div className="text-center mt-10 text-gray-500">
+        Book not found 😢
+      </div>
+    );
   }
 
   // 📌 Borrow Button Logic
   const handleBorrow = () => {
-    // 🔐 extra safety (middleware already protects)
+    // 🔐 auth check
     if (!user) {
       toast.error("Please login to borrow this book 🔐");
       router.push(`/login?redirect=/books/${id}`);
@@ -49,22 +57,23 @@ export default function BookDetailsPage() {
 
   return (
     <div className="max-w-5xl mx-auto px-6 py-12">
-      <Card className="p-6 grid md:grid-cols-2 gap-6">
+      <Card className="p-6 grid md:grid-cols-2 gap-6 relative">
 
-        {/* 📷 Left: Image */}
-        <div className="relative w-full h-80">
+        {/* 📷 Image */}
+        <div className="relative w-full h-80 overflow-hidden rounded">
           <Image
             src={book.image_url}
             alt={book.title}
             fill
-            className="object-cover rounded"
-            unoptimized
+            className="object-cover"
+            priority
+            sizes="(max-width: 768px) 100vw, 50vw"
           />
         </div>
 
-        {/* 📄 Right: Details */}
+        {/* 📄 Details */}
         <div>
-          <h1 className="text-2xl font-bold">{book.title}</h1>
+          <h1 className="text-xl md:text-2xl font-bold">{book.title}</h1>
 
           <p className="text-gray-500 mt-1">
             By {book.author}
@@ -88,6 +97,7 @@ export default function BookDetailsPage() {
             color="primary"
             className="mt-6 w-full"
             onClick={handleBorrow}
+            disabled={book.available_quantity === 0}
           >
             {book.available_quantity === 0
               ? "Out of Stock"

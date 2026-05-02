@@ -6,10 +6,10 @@ export default function LoadingPage() {
 
       {/* 🔵 Spinner */}
       <div className="relative mb-6">
-        <div className="w-16 h-16 border-4 border-white/30 border-t-white rounded-full animate-spin"></div>
+        <div className="w-10 md:w-16 h-10 md:h-16 border-4 border-white/30 border-t-white rounded-full animate-spin"></div>
 
         {/* Glow ring */}
-        <div className="absolute inset-0 w-16 h-16 border-4 border-transparent border-t-blue-300 rounded-full animate-ping"></div>
+        <div className="absolute inset-0 w-10 md:w-16 h-10 md:h-16 border-4 border-transparent border-t-blue-300 rounded-full animate-ping"></div>
       </div>
 
       {/* 📚 Title */}
