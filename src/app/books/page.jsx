@@ -14,7 +14,7 @@ export default function AllBooksPage() {
 
   const categories = ["All", "Story", "Tech", "Science"];
 
-  // 🔍 Apply filter
+  // 🔍 Filter
   const filteredBooks = books.filter((book) => {
     const matchSearch = book.title
       .toLowerCase()
@@ -26,50 +26,49 @@ export default function AllBooksPage() {
     return matchSearch && matchCategory;
   });
 
-  // 🔎 Search button click
   const handleSearch = () => {
     setSearch(tempSearch);
   };
 
   const categoryColors = {
-  Story: "bg-purple-500 text-white",
-  Tech: "bg-yellow-500 text-black",
-  Science: "bg-green-500 text-white",
-  Default: "bg-gray-500 text-white",
-};
+    Story: "bg-purple-500 text-white",
+    Tech: "bg-yellow-500 text-black",
+    Science: "bg-green-500 text-white",
+    Default: "bg-gray-500 text-white",
+  };
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-6 md:py-10">
 
-      {/* 🔍 Search Box + Button */}
+      {/* 🔍 Search Box */}
       <div className="flex justify-end items-center gap-2 md:gap-3 mb-8">
 
-  {/* 🔍 Input */}
-  <Input
-    size="sm"
-    placeholder="Search books by title..."
-    value={tempSearch}
-    onChange={(e) => setTempSearch(e.target.value)}
-    onKeyDown={(e) => {
-      if (e.key === "Enter") handleSearch();
-    }}
-    className="flex-1 md:flex-none w-30 md:w-80"
-  />
+        <div className="flex items-center gap-2 border rounded px-2">
+          <FaSearch className="text-[10px] md:text-base text-gray-500" />
 
-  {/* 🔘 Button */}
-  <Button 
-    color="primary" 
-    onClick={handleSearch}
-    className="h-9 md:h-10 px-3 md:px-6 flex items-center gap-2"
-  >
-    <FaSearch className="text-[8px] md:text-base" />
-    <span className="">Search</span>
-  </Button>
+          <Input
+            size="sm"
+            placeholder="Search books by title..."
+            value={tempSearch}
+            onChange={(e) => setTempSearch(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") handleSearch();
+            }}
+            className="flex-1 w-45 md:w-80 text-sm md:text-base outline-none"
+          />
+        </div>
 
-</div>
+        <Button
+          color="primary"
+          onClick={handleSearch}
+          className="h-9 md:h-10 px-4 md:px-6"
+        >
+          Search
+        </Button>
+      </div>
 
-      {/* 🧭 Categories & Books */}
-      <div className="grid md:grid-cols-4 gap-6">
+      {/* 🧭 Layout */}
+      <div className="grid md:grid-cols-4 gap-2 md:gap-6">
 
         {/* 🧭 Sidebar */}
         <div className="md:col-span-1">
@@ -80,7 +79,7 @@ export default function AllBooksPage() {
               <button
                 key={cat}
                 onClick={() => setCategory(cat)}
-                className={`block w-full text-left px-3 py-2 rounded ${
+                className={`block w-full text-left text-sm md:text-base px-3 py-2 rounded ${
                   category === cat
                     ? "bg-blue-600 text-white"
                     : "bg-gray-100 hover:bg-gray-200"
@@ -99,8 +98,9 @@ export default function AllBooksPage() {
           ) : (
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {filteredBooks.map((book) => (
-                <Card key={book.id} className="p-4">
+                <Card key={book.id} className="p-4 relative">
 
+                  {/* Image */}
                   <div className="relative w-full h-40">
                     <Image
                       src={book.image_url}
@@ -109,19 +109,23 @@ export default function AllBooksPage() {
                       className="object-cover rounded"
                     />
                   </div>
-                  <Chip
-                      size="sm"
-                      className={`absolute right-5 top-6 ${
-                        categoryColors[book.category] || categoryColors.Default
-                      }`}
-                    >
-                      {book.category}
-                    </Chip>
 
+                  {/* Category Chip */}
+                  <Chip
+                    size="sm"
+                    className={`absolute top-5 right-5 ${
+                      categoryColors[book.category] || categoryColors.Default
+                    }`}
+                  >
+                    {book.category}
+                  </Chip>
+
+                  {/* Title */}
                   <h3 className="mt-3 font-semibold text-justify">
                     {book.title}
                   </h3>
 
+                  {/* Button */}
                   <Link href={`/books/${book.id}`}>
                     <Button size="sm" className="mt-3 w-full">
                       Details
