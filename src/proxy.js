@@ -8,10 +8,16 @@ export async function proxy(request) {
 
   const { pathname } = request.nextUrl;
 
-  // 🎯 Match: /books/:id (details page only)
+  // 🔒 profile protected
+  if (!session && pathname.startsWith("/profile")) {
+    return NextResponse.redirect(
+      new URL(`/login?redirect=${pathname}`, request.url)
+    );
+  }
+
+  // 🔒 (optional) book details protected
   const isBookDetails = /^\/books\/[^/]+$/.test(pathname);
 
-  // 🔐 যদি login না থাকে → login page
   if (!session && isBookDetails) {
     return NextResponse.redirect(
       new URL(`/login?redirect=${pathname}`, request.url)
@@ -21,7 +27,6 @@ export async function proxy(request) {
   return NextResponse.next();
 }
 
-// ✅ সব books route check করবে, কিন্তু logic ভিতরে handle করছি
 export const config = {
-  matcher: ["/books/:path*"],
+  matcher: ["/profile", "/books/:path*"],
 };
