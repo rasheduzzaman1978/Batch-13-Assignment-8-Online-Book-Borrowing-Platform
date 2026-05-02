@@ -3,11 +3,13 @@ import { NextResponse } from "next/server";
 export function proxy(request) {
   const { pathname } = request.nextUrl;
 
-  // 👉 তোমার auth cookie name check করো
   const token = request.cookies.get("better-auth.session_token");
 
-  // 🔒 Profile protect
-  if (!token && pathname.startsWith("/profile")) {
+  // 🎯 Match only /books/:id
+  const isBookDetails = /^\/books\/[^/]+$/.test(pathname);
+
+  // 🔒 Protect profile + book details
+  if (!token && (pathname.startsWith("/profile") || isBookDetails)) {
     return NextResponse.redirect(
       new URL(`/login?redirect=${pathname}`, request.url)
     );
@@ -17,5 +19,5 @@ export function proxy(request) {
 }
 
 export const config = {
-  matcher: ["/profile"],
+  matcher: ["/profile", "/books/:path*"],
 };
