@@ -4,7 +4,7 @@ import { useState } from "react";
 import books from "@/data/books.json";
 import Link from "next/link";
 import Image from "next/image";
-import { Input, Card, Button } from "@heroui/react";
+import { Input, Card, Button, Chip } from "@heroui/react";
 import { FaSearch } from "react-icons/fa";
 
 export default function AllBooksPage() {
@@ -30,6 +30,13 @@ export default function AllBooksPage() {
   const handleSearch = () => {
     setSearch(tempSearch);
   };
+
+  const categoryColors = {
+  Story: "bg-purple-500 text-white",
+  Tech: "bg-yellow-500 text-black",
+  Science: "bg-green-500 text-white",
+  Default: "bg-gray-500 text-white",
+};
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-6 md:py-10">
@@ -66,7 +73,7 @@ export default function AllBooksPage() {
 
         {/* 🧭 Sidebar */}
         <div className="md:col-span-1">
-          <h2 className="font-bold mb-4">Categories</h2>
+          <h2 className="font-bold mb-4">Filter By Categories</h2>
 
           <div className="space-y-2">
             {categories.map((cat) => (
@@ -102,6 +109,14 @@ export default function AllBooksPage() {
                       className="object-cover rounded"
                     />
                   </div>
+                  <Chip
+                      size="sm"
+                      className={`absolute right-5 top-6 ${
+                        categoryColors[book.category] || categoryColors.Default
+                      }`}
+                    >
+                      {book.category}
+                    </Chip>
 
                   <h3 className="mt-3 font-semibold text-justify">
                     {book.title}

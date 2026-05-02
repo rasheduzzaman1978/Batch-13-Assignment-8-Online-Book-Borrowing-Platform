@@ -115,7 +115,7 @@ export default function CustomNavbar() {
                 />
                 <Avatar.Fallback>{user?.name.charAt(0)}</Avatar.Fallback>
                 </Avatar>
-                <span className="text-gray-300">{user?.name}</span>
+                {/* <span className="text-gray-300">{user?.name}</span> */}
                 <Button variant="danger" color="danger" onClick={handleLogout}>
                   Logout
                 </Button>
