@@ -1,24 +1,13 @@
 import { NextResponse } from "next/server";
-import { auth } from "./lib/auth";
 
-export async function proxy(request) {
-  const session = await auth.api.getSession({
-    headers: request.headers,
-  });
-
+export function proxy(request) {
   const { pathname } = request.nextUrl;
 
-  // 🔒 profile protected
-  if (!session && pathname.startsWith("/profile")) {
-    return NextResponse.redirect(
-      new URL(`/login?redirect=${pathname}`, request.url)
-    );
-  }
+  // 👉 তোমার auth cookie name check করো
+  const token = request.cookies.get("better-auth.session_token");
 
-  // 🔒 (optional) book details protected
-  const isBookDetails = /^\/books\/[^/]+$/.test(pathname);
-
-  if (!session && isBookDetails) {
+  // 🔒 Profile protect
+  if (!token && pathname.startsWith("/profile")) {
     return NextResponse.redirect(
       new URL(`/login?redirect=${pathname}`, request.url)
     );
@@ -28,5 +17,5 @@ export async function proxy(request) {
 }
 
 export const config = {
-  matcher: ["/profile", "/books/:path*"],
+  matcher: ["/profile"],
 };
