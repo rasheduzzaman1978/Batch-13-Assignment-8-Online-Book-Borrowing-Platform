@@ -29,11 +29,15 @@ const ProfilePage = () => {
           
           {/* প্রোফাইল ইমেজ */}
           <div className="mb-4">
-            <Avatar
-              src={user?.image || null} 
-              className="w-24 h-24 text-xl ring-4 ring-gray-50"
-              name={user?.name?.charAt(0) || "U"}
-            />
+            <Avatar size="sm">
+                <Avatar.Image
+                  alt="John Doe"
+                  src={user?.image}
+                  name={user?.name}
+                  referrerPolicy="no-referrer"
+                />
+                <Avatar.Fallback>{user?.name.charAt(0)}</Avatar.Fallback>
+                </Avatar>
           </div>
 
           {/* ইউজার ইনফরমেশন */}

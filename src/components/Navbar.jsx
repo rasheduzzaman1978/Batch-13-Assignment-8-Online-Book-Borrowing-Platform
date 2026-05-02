@@ -33,10 +33,10 @@ export default function CustomNavbar() {
     window.location.href = "/";
   };
 
-  const avatarSrc =
-  [user?.image, user?.image_url, user?.imageUrl, user?.photoURL]
-    .find((img) => img && img.trim() !== "") ||
-  "https://i.pravatar.cc/150?img=3";
+  // const avatarSrc =
+  // [user?.image, user?.image_url, user?.imageUrl, user?.photoURL]
+  //   .find((img) => img && img.trim() !== "") ||
+  // "https://i.pravatar.cc/150?img=3";
   
   return (
     <div className="w-full shadow bg-gray-900 text-white sticky top-0 z-50">
@@ -111,10 +111,15 @@ export default function CustomNavbar() {
               </ul>
             ) : (
               <div className="flex items-center gap-4">
-                <Avatar
-                  src={avatarSrc}
+                <Avatar size="sm">
+                <Avatar.Image
+                  alt="John Doe"
+                  src={user?.image}
                   name={user?.name}
+                  referrerPolicy="no-referrer"
                 />
+                <Avatar.Fallback>{user?.name.charAt(0)}</Avatar.Fallback>
+                </Avatar>
                 <span className="text-gray-300">{user?.name}</span>
                 <Button variant="danger" color="danger" onClick={handleLogout}>
                   Logout
