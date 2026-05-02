@@ -1,27 +1,18 @@
 import { NextResponse } from "next/server";
+import { auth } from "./lib/auth";
+import { headers } from "next/headers";
 
-export function proxy(request) {
-  const { pathname } = request.nextUrl;
+// This function can be marked `async` if using `await` inside
+export async function proxy(request) {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
 
-  // 🔑 cookie (production + local দুটোই কভার)
-  const token =
-    request.cookies.get("better-auth.session_token")?.value ||
-    request.cookies.get("authjs.session-token")?.value ||
-    request.cookies.get("__Secure-authjs.session-token")?.value;
-
-  // 🎯 match ONLY /books/:id (যেকোন id)
-  const isBookDetails = /^\/books\/[^/]+$/.test(pathname);
-
-  // 🔒 protect profile + all book details
-  if (!token && (pathname.startsWith("/profile") || isBookDetails)) {
-    return NextResponse.redirect(
-      new URL(`/login?redirect=${pathname}`, request.url)
-    );
+  if (!session) {
+   return NextResponse.redirect(new URL('/login', request.url))
   }
-
-  return NextResponse.next();
 }
 
 export const config = {
-  matcher: ["/profile", "/books/:path*"],
+  matcher: ["/profile", "/books/:path"],
 };
