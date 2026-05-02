@@ -1,36 +1,84 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Project Name: BookNest - Online Book Borrowing Platform
 
-## Getting Started
+Live Link: https://batch-13-assignment-8-online-book-b.vercel.app
 
-First, run the development server:
+** Project Purpose:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+    BookNest is a modern online book borrowing platform where users can easily explore, search and borrow books.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+    The goal of this project is to provide a smooth and user-friendy digital experience for managing books online.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+** Key Features:
+    Authentication System:
+    * User registration & login using BetterAuth
+    * Secure session management
+    * Private routes for protected pages
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+** Book Management
+    * Browse all books
+    * Search books using keyword
+    * Filter books by category (Story, Tech, Science)
+    * Featured books section on homepage
 
-## Learn More
+** Book Details Page
 
-To learn more about Next.js, take a look at the following resources:
+    * Dynamic routing (/books/[id])
+    * Private access (only logged-in-users)
+    * Book details (title, author, description, category)
+    * Available quantity display
+    * Borrow button with validation & toast notification
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+** Search & Filter
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+    * Responsive search bar with button
+    * Category sidebar filter
+    * Smooth and fast filtering system
 
-## Deploy on Vercel
+** User Profile
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+    * View user info (name, email, avatar)
+    * Update profile via modal
+    * Protected profile route
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+** UI/UX Design
+
+    * Fully responsive design (mobile + desktop)
+    * Modern UI using HeroUI
+    * Smooth animations (Animate.css)
+    * Toast notifications (React Toastify)
+    * Loading screen and marquee news ticker
+
+** Technologies Used
+
+    * Next.js (App Router)
+    * React
+    * Tailwind CSS
+    * HeroUI (UI Components)
+
+** Backend / Auth
+
+    * BetterAuth
+    * MongoDB Atlas
+
+** NPM Packages Used
+   
+   * react-toastify
+   * react-icons
+   * animate.css
+   * react-fast-marquee
+   * next/image
+
+** Future Improvements
+   * Borrow history tracking
+   * Book return system
+   * Admin dashboard
+   * Real-time database updates
+
+## Author
+
+Developed by: Md. Rasheduzzaman
+GitHub Link: https://github.com/rasheduzzaman1978/Batch-13-Assignment-8-Online-Book-Borrowing-Platform
+
+** Final Note
+
+    This project demonstrates full-stack development using Next.js, authentication systems, database integration and modern UI design.
