@@ -73,17 +73,17 @@ export default function UpdateUserModal({ user }) {
               {/* ইনপুট বডি */}
               <div className="space-y-6 text-left">
                 <div>
-                  <label className="block text-sm font-medium mb-1 text-gray-700">Name</label>
+                  <label className="block text-sm font-medium mb-1 text-gray-700">Name:</label>
                   <Input
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder="Enter your name"
                     variant="bordered"
-                    className="font-medium"
+                    className="font-medium w-60 md:w-75"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium mb-1 text-gray-700">Image URL</label>
+                  <label className="block text-sm font-medium mb-1 text-gray-700">Image URL:</label>
                   <Input
                     value={image}
                     onChange={(e) => setImage(e.target.value)}

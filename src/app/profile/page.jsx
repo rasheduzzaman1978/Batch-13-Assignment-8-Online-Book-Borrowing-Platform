@@ -24,12 +24,12 @@ const ProfilePage = () => {
   return (
     <div className="min-h-[80vh] flex items-center justify-center p-4">
       {/* মূল কার্ড ডিজাইন */}
-      <Card className="w-full max-w-[420px] border border-gray-100 shadow-sm bg-white rounded-[2.5rem] p-10 overflow-visible">
+      <Card className="w-full max-w-105 border border-gray-100 shadow-sm bg-white rounded-[2.5rem] p-10 overflow-visible">
         <div className="flex flex-col items-center">
           
           {/* প্রোফাইল ইমেজ */}
           <div className="mb-4">
-            <Avatar size="sm">
+            <Avatar size="lg">
                 <Avatar.Image
                   alt="John Doe"
                   src={user?.image}
@@ -42,7 +42,7 @@ const ProfilePage = () => {
 
           {/* ইউজার ইনফরমেশন */}
           <div className="text-center mb-8">
-            <h1 className="text-2xl font-bold text-gray-900 mb-1">
+            <h1 className="text-lg md:text-2xl font-bold text-gray-900 mb-1">
               {user?.name || "R"} 
             </h1>
             <p className="text-gray-500 text-base">

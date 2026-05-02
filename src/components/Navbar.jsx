@@ -33,14 +33,9 @@ export default function CustomNavbar() {
     window.location.href = "/";
   };
 
-  // const avatarSrc =
-  // [user?.image, user?.image_url, user?.imageUrl, user?.photoURL]
-  //   .find((img) => img && img.trim() !== "") ||
-  // "https://i.pravatar.cc/150?img=3";
-  
   return (
     <div className="w-full shadow bg-gray-900 text-white sticky top-0 z-50">
-      <Navbar maxWidth="full" className="px-6 py-3 bg-gray-900">
+      <Navbar maxWidth="full" className="px-2 md:px-6 py-3 bg-gray-900">
 
         {/* Left → Logo */}
         <NavbarContent justify="start" className="flex-1">
@@ -69,7 +64,7 @@ export default function CustomNavbar() {
                   {link.name}
 
                   {isActive && (
-                    <span className="absolute left-0 -bottom-1 w-full h-[2px] bg-blue-500 rounded"></span>
+                    <span className="absolute left-0 -bottom-1 w-full h-0.5 bg-blue-500 rounded"></span>
                   )}
                 </Link>
               </NavbarItem>
