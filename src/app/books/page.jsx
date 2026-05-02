@@ -107,6 +107,7 @@ export default function AllBooksPage() {
                       alt={book.title}
                       fill
                       className="object-cover rounded"
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     />
                   </div>
 

@@ -6,14 +6,14 @@ import { Button, Card } from "@heroui/react";
 import Image from "next/image";
 import { toast } from "react-toastify";
 import { authClient } from "@/lib/auth-client";
-import LoadingPage from "@/app/loading/page";
+import LoadingPage from "@/components/LoadingPage";
 
 export default function BookDetailsPage() {
   const router = useRouter();
-
-  // ✅ safer params handling
   const params = useParams();
-  const id = Number(params.id);
+
+  // ✅ safe id
+  const id = params?.id ? Number(params.id) : null;
 
   // 🔐 session
   const { data, isPending } = authClient.useSession();
@@ -22,10 +22,11 @@ export default function BookDetailsPage() {
   // 📚 find book
   const book = books.find((b) => b.id === id);
 
-  // ⏳ loading
+  // ⏳ loading (inline)
   if (isPending) {
-    return <LoadingPage />;
-  }
+    return <LoadingPage></LoadingPage>
+ 
+}
 
   // ❌ invalid id বা book না থাকলে
   if (!id || !book) {
@@ -38,20 +39,17 @@ export default function BookDetailsPage() {
 
   // 📌 Borrow Button Logic
   const handleBorrow = () => {
-    // 🔐 auth check
     if (!user) {
       toast.error("Please login to borrow this book 🔐");
       router.push(`/login?redirect=/books/${id}`);
       return;
     }
 
-    // ❌ stock check
     if (book.available_quantity <= 0) {
       toast.error("No copies available ❌");
       return;
     }
 
-    // ✅ success
     toast.success("Book borrowed successfully 🎉");
   };
 
@@ -73,7 +71,7 @@ export default function BookDetailsPage() {
 
         {/* 📄 Details */}
         <div>
-          <h1 className="text-xl md:text-2xl font-bold">{book.title}</h1>
+          <h1 className="text-2xl font-bold">{book.title}</h1>
 
           <p className="text-gray-500 mt-1">
             By {book.author}

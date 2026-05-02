@@ -1,16 +1,20 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import booksData from "@/data/books.json";
+import { authClient } from "@/lib/auth-client"; // ✅ add
+import LoadingPage from "@/components/LoadingPage"; // ✅ add (if exists)
 
 export default function FeaturedBooks() {
-  const [books, setBooks] = useState([]);
+  const books = booksData.slice(0, 4);
 
-  useEffect(() => {
-    setBooks(booksData.slice(0, 4));
-  }, []);
+  const { data, isPending } = authClient.useSession();
+
+  // ⏳ loading
+  if (isPending) {
+    return <LoadingPage />;
+  }
 
   return (
     <section className="py-6 md:py-10 lg:py-16 bg-gray-100 px-4">
@@ -30,17 +34,16 @@ export default function FeaturedBooks() {
             style={{ animationDelay: `${index * 0.2}s` }}
           >
 
-            {/* 📷 Image */}
             <div className="relative w-full h-48">
               <Image
                 src={book.image_url}
                 alt={book.title}
                 fill
                 className="object-cover"
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
               />
             </div>
 
-            {/* 📄 Content */}
             <div className="p-4 flex flex-col flex-grow">
 
               <div className="flex-grow">
@@ -57,11 +60,11 @@ export default function FeaturedBooks() {
                 </p>
               </div>
 
-              {/* 🔘 Button (Always Bottom) */}
-              <Link href={`/books/${book.id}`}>
-                <button className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition">
-                  View Details
-                </button>
+              <Link
+                href={`/books/${book.id}`}
+                className="block w-full text-center bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition"
+              >
+                View Details
               </Link>
 
             </div>
