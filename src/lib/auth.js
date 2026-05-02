@@ -13,7 +13,7 @@ export const auth = betterAuth({
 
   // 🔥 ADD THIS (MOST IMPORTANT)
   trustedOrigins: [
-    "http://localhost:3000",
+    // "http://localhost:3000",
     "https://batch-13-assignment-8-online-book-b.vercel.app"
   ],
 
