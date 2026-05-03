@@ -35,7 +35,7 @@ export default function AllBooksPage() {
 
   const categoryColors = {
     Story: "bg-purple-500 text-white",
-    Tech: "bg-yellow-500 text-black",
+    Tech: "bg-yellow-400 text-black",
     Science: "bg-green-500 text-white",
     Default: "bg-gray-500 text-white",
   };
@@ -44,26 +44,34 @@ export default function AllBooksPage() {
     <div className="max-w-7xl mx-auto px-4 py-6 md:py-10">
 
       {/* 🔍 Search */}
-      <BookSearch
-        tempSearch={tempSearch}
-        setTempSearch={setTempSearch}
-        onSearch={handleSearch}
-      />
+      <div className="mb-6">
+        <BookSearch
+          tempSearch={tempSearch}
+          setTempSearch={setTempSearch}
+          onSearch={handleSearch}
+        />
+      </div>
 
       {/* 🧭 Layout */}
-      <div className="grid md:grid-cols-4 gap-2 md:gap-6">
+      <div className="grid md:grid-cols-4 gap-6">
 
-        {/* 🧭 Sidebar Filter */}
+        {/* 🧭 Sidebar */}
         <div className="md:col-span-1">
-          <BookFilter
-            categories={categories}
-            category={category}
-            setCategory={setCategory}
-          />
+          <div className="sticky top-24 bg-white/70 backdrop-blur-md p-4 rounded-2xl shadow-md border border-gray-200">
+            <h3 className="font-semibold mb-3 text-gray-700">
+              Categories
+            </h3>
+
+            <BookFilter
+              categories={categories}
+              category={category}
+              setCategory={setCategory}
+            />
+          </div>
         </div>
 
         {/* 📚 Books */}
-        <div className="md:col-span-3 flex items-center justify-center">
+        <div className="md:col-span-3">
 
           {filteredBooks.length === 0 ? (
             <EmptyState
@@ -72,48 +80,66 @@ export default function AllBooksPage() {
               icon="📚"
             />
           ) : (
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+
               {filteredBooks.map((book) => (
-                <Card key={book.id} className="p-4 relative">
+                <Card
+                  key={book.id}
+                  className="group p-0 overflow-hidden rounded-2xl border border-gray-200 shadow-sm 
+                  hover:shadow-xl transition duration-300 bg-white/80 backdrop-blur-md"
+                >
 
                   {/* Image */}
-                  <div className="relative w-full h-40">
+                  <div className="relative w-full h-48 overflow-hidden">
                     <Image
                       src={book.image_url}
                       alt={book.title}
                       fill
-                      className="object-cover rounded"
-                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
+                      className="object-cover group-hover:scale-105 transition duration-500"
                     />
+
+                    {/* Gradient */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+
+                    {/* Category */}
+                    <Chip
+                      size="sm"
+                      className={`absolute top-3 right-3 ${
+                        categoryColors[book.category] || categoryColors.Default
+                      }`}
+                    >
+                      {book.category}
+                    </Chip>
                   </div>
 
-                  {/* Category */}
-                  <Chip
-                    size="sm"
-                    className={`absolute top-5 right-5 ${
-                      categoryColors[book.category] || categoryColors.Default
-                    }`}
-                  >
-                    {book.category}
-                  </Chip>
+                  {/* Content */}
+                  <div className="p-4 flex flex-col">
 
-                  {/* Title */}
-                  <h3 className="mt-3 font-semibold text-justify">
-                    {book.title}
-                  </h3>
+                    <h3 className="font-semibold text-lg mb-1 line-clamp-1">
+                      {book.title}
+                    </h3>
 
-                  {/* Button */}
-                  <Link href={`/books/${book.id}`}>
-                    <Button size="sm" className="mt-3 w-full">
-                      Details
-                    </Button>
-                  </Link>
+                    <p className="text-sm text-gray-500 mb-3">
+                      ✍️ {book.author}
+                    </p>
 
+                    {/* Button */}
+                    <Link href={`/books/${book.id}`}>
+                      <Button
+                        size="sm"
+                        className="w-full mt-auto bg-gradient-to-r from-blue-500 to-indigo-600 text-white"
+                      >
+                        View Details
+                      </Button>
+                    </Link>
+
+                  </div>
                 </Card>
               ))}
+
             </div>
           )}
-
         </div>
       </div>
     </div>

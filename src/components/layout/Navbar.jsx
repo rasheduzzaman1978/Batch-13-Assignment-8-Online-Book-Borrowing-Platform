@@ -118,7 +118,7 @@ export default function CustomNavbar() {
                   </Avatar.Fallback>
                 </Avatar>
 
-                <span className="hidden md:block text-gray-300">
+                <span className="hidden lg:block text-gray-300">
                   {user?.name || "Guest"}
                 </span>
 
