@@ -15,7 +15,7 @@ export default function Banner() {
         alt="Library"
         fill
         priority
-        className="object-cover"
+        sizes="(max-width: 768px) 100vw, 300px"
       />
 
       {/* Overlay */}
