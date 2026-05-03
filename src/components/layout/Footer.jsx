@@ -27,55 +27,58 @@ export default function Footer() {
         <div>
           <h3 className="text-xl font-semibold mb-3">Contact Us</h3>
 
-          <p className="text-gray-400 flex items-center gap-2">
-            <MdEmail /> rashedzaman1978@gmail.com
-          </p>
+          {/* Email */}
+           <a
+              href="https://mail.google.com/mail/?view=cm&fs=1&to=rashedzaman1978@gmail.com"
+              target="_blank"
+              className="group flex items-center gap-3 text-gray-400 hover:text-white transition"
+            >
+              <MdEmail className="group-hover:scale-125 transition" />
+              rashedzaman1978@gmail.com
+            </a>
 
-          <p className="text-gray-400 flex items-center gap-2">
-            <MdPhone /> +880 1716651946
-          </p>
+          {/* Phone */}
+          <a
+            href="tel:+8801716651946"
+            className="text-gray-400 flex items-center gap-2 hover:text-white transition"
+          >
+            <MdPhone /> +8801716651946
+          </a>
 
-          <p className="text-gray-400 flex items-center gap-2">
+          {/* Location (optional: clickable Google Maps) */}
+          <a
+            href="https://www.google.com/maps/search/?api=1&query=Ullapara,Sirajganj,Bangladesh"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-gray-400 flex items-center gap-2 hover:text-white transition"
+          >
             <MdLocationOn /> Ullapara, Sirajganj, Bangladesh
-          </p>
+          </a>
         </div>
 
         {/* Social Media */}
-       <div>
-  <h3 className="text-xl font-semibold mb-3">Follow Us</h3>
+        <div>
+          <h3 className="text-xl font-semibold mb-3">Follow Us</h3>
 
-  <div className="flex gap-3">
-    <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
-      <Button
-        size="sm"
-        className="flex items-center gap-2 bg-gray-800 hover:bg-blue-600 text-white rounded-full px-4 py-2 transition-all duration-300 cursor-pointer"
-      >
-        <FaFacebookF className="text-lg" />
-        Facebook
-      </Button>
-    </a>
+          <div className="flex gap-3 flex-wrap">
+            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
+              <Button className="flex items-center gap-2 bg-gray-800 hover:bg-blue-600 text-white rounded-full px-4 py-2">
+                <FaFacebookF /> Facebook
+              </Button>
+            </a>
 
-    <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
-      <Button
-        size="sm"
-        className="flex items-center gap-2 bg-gray-800 hover:bg-sky-500 text-white rounded-full px-4 py-2 transition-all duration-300 cursor-pointer"
-      >
-        <FaTwitter className="text-lg" />
-        Twitter
-      </Button>
-    </a>
+            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
+              <Button className="flex items-center gap-2 bg-gray-800 hover:bg-sky-500 text-white rounded-full px-4 py-2">
+                <FaTwitter /> Twitter
+              </Button>
+            </a>
 
-    <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">
-      <Button
-        size="sm"
-        className="flex items-center gap-2 bg-gray-800 hover:bg-blue-700 text-white rounded-full px-4 py-2 transition-all duration-300 cursor-pointer"
-      >
-        <FaLinkedinIn className="text-lg" />
-        LinkedIn
-      </Button>
-    </a>
-  </div>
-
+            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">
+              <Button className="flex items-center gap-2 bg-gray-800 hover:bg-blue-700 text-white rounded-full px-4 py-2">
+                <FaLinkedinIn /> LinkedIn
+              </Button>
+            </a>
+          </div>
         </div>
       </div>
 
