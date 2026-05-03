@@ -47,7 +47,7 @@ export default function BookDetailsPage() {
   const isAvailable = book.available_quantity > 0;
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-200 py-10 px-4">
+    <div className="bg-gradient-to-b from-gray-50 to-gray-200 py-6 md:py-10 px-4">
 
       <div className="max-w-6xl mx-auto">
 
@@ -62,8 +62,9 @@ export default function BookDetailsPage() {
                 src={book.image_url}
                 alt={book.title}
                 fill
+                loading="eager"
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
-                className="object-cover group-hover:scale-105 transition duration-500"
+                className="object-cover"
               />
 
               {/* Gradient */}

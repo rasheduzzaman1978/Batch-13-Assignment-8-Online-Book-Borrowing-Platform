@@ -4,7 +4,7 @@ import { FaHome, FaSearch } from "react-icons/fa";
 
 export default function NotFound() {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-600 via-indigo-600 to-blue-500 px-4">
+    <div className="flex items-center justify-center bg-gradient-to-br from-purple-600 via-indigo-600 to-blue-500 px-4">
 
       {/* Background blur circle */}
       <div className="absolute w-72 h-72 bg-purple-400 opacity-30 rounded-full blur-3xl top-10 left-10"></div>

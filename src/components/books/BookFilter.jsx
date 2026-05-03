@@ -3,7 +3,7 @@
 export default function BookFilter({ categories, category, setCategory }) {
   return (
     <div>
-      <h2 className="font-bold mb-4">Filter By Categories</h2>
+      <h2 className="font-bold mb-4 text-base md:text-xl">Filter By Categories</h2>
 
       <div className="space-y-2">
         {categories.map((cat) => (

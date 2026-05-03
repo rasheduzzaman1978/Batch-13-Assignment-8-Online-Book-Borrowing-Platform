@@ -58,10 +58,7 @@ export default function AllBooksPage() {
         {/* 🧭 Sidebar */}
         <div className="md:col-span-1">
           <div className="sticky top-24 bg-white/70 backdrop-blur-md p-4 rounded-2xl shadow-md border border-gray-200">
-            <h3 className="font-semibold mb-3 text-gray-700">
-              Categories
-            </h3>
-
+            
             <BookFilter
               categories={categories}
               category={category}
@@ -80,7 +77,7 @@ export default function AllBooksPage() {
               icon="📚"
             />
           ) : (
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
 
               {filteredBooks.map((book) => (
                 <Card
