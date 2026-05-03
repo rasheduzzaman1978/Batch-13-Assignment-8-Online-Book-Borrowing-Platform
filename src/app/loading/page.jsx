@@ -1,6 +1,6 @@
 export default function LoadingPage() {
   return (
-    <div className="flex flex-col items-center justify-center bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-600 text-white">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-600 text-white">
 
       {/* 🔵 Spinner */}
       <div className="relative mb-6">
