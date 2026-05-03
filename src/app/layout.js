@@ -1,3 +1,5 @@
+import "./globals.css";
+import "animate.css"; 
 import Footer from "@/components/layout/Footer";
 import "./globals.css";
 import NavbarWrapper from "@/components/layout/NavbarWrapper";

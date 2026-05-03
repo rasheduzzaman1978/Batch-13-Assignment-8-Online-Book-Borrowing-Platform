@@ -40,7 +40,7 @@ export default function CustomNavbar() {
         {/* Left → Logo */}
         <NavbarContent justify="start" className="flex-1">
           <NavbarBrand>
-            <Link href="/" className="font-bold text-xl text-white">
+            <Link href="/" className="font-bold text-xl md:text-2xl text-white">
               📚 BookNest
             </Link>
           </NavbarBrand>
@@ -107,16 +107,26 @@ export default function CustomNavbar() {
             ) : (
               <div className="flex items-center gap-4">
                 <Avatar size="sm">
-                <Avatar.Image
-                  alt="John Doe"
-                  src={user?.image}
-                  name={user?.name}
-                  referrerPolicy="no-referrer"
-                />
-                <Avatar.Fallback>{user?.name.charAt(0)}</Avatar.Fallback>
+                  <Avatar.Image
+                    alt={user?.name || "User"}
+                    src={user?.image}
+                    referrerPolicy="no-referrer"
+                  />
+
+                  <Avatar.Fallback>
+                    {user?.name?.charAt(0) || "G"}
+                  </Avatar.Fallback>
                 </Avatar>
-                {/* <span className="text-gray-300">{user?.name}</span> */}
-                <Button variant="danger" color="danger" onClick={handleLogout}>
+
+                <span className="hidden md:block text-gray-300">
+                  {user?.name || "Guest"}
+                </span>
+
+                <Button
+                  variant="danger"
+                  color="danger"
+                  onClick={handleLogout}
+                >
                   Logout
                 </Button>
               </div>
