@@ -1,7 +1,7 @@
-import Banner from "@/components/Banner";
-import FeaturedBooks from "@/components/FeaturedBooks";
+import Banner from "@/components/home/Banner";
+import FeaturedBooks from "@/components/home/FeaturedBooks";
 // import Categories from "@/components/Categories";
-import MembershipCTA from "@/components/MembershipCTA";
+import MembershipCTA from "@/components/home/MembershipCTA";
 import AboutPage from "@/components/About";
 
 export default function Page() {

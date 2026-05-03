@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import booksData from "@/data/books.json";
 import { authClient } from "@/lib/auth-client"; // ✅ add
-import LoadingPage from "@/components/LoadingPage"; // ✅ add (if exists)
+import LoadingPage from "@/components/shared/LoadingPage"; // ✅ add (if exists)
 
 export default function FeaturedBooks() {
   const books = booksData.slice(0, 4);
