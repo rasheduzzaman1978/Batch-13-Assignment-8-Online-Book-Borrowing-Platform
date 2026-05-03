@@ -15,21 +15,27 @@ export default function BookDetailsPage() {
   const router = useRouter();
   const params = useParams();
 
-  const id = params?.id ? Number(params.id) : null;
+  // ✅ safer id parsing
+  const id = params?.id ? parseInt(params.id, 10) : null;
 
+  // 🔐 session
   const { data, isPending } = authClient.useSession();
   const user = data?.user;
 
-  const book = books.find((b) => b.id === id);
+  // 📚 find book (id valid হলে)
+  const book = id ? books.find((b) => b.id === id) : null;
 
+  // ⏳ loading
   if (isPending) {
     return <LoadingPage />;
   }
 
-  if (!id || !book) {
+  // ❌ invalid বা book না থাকলে
+  if (!book) {
     return <BookNotFound />;
   }
 
+  // 📌 Borrow Logic
   const handleBorrow = () => {
     if (!user) {
       toast.error("Please login to borrow this book 🔐");
@@ -42,12 +48,13 @@ export default function BookDetailsPage() {
       return;
     }
 
+    // 👉 future: API call here
     toast.success("Book borrowed successfully 🎉");
   };
 
   return (
     <div className="max-w-5xl mx-auto px-6 py-12">
-      <Card className="p-6 grid md:grid-cols-2 gap-6 relative">
+      <Card className="p-6 grid md:grid-cols-2 gap-6">
         <BookImage image={book.image_url} title={book.title} />
         <BookInfo book={book} onBorrow={handleBorrow} />
       </Card>

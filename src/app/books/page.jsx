@@ -6,6 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Input, Card, Button, Chip } from "@heroui/react";
 import { FaSearch } from "react-icons/fa";
+import EmptyState from "@/components/shared/EmptyState";
 
 export default function AllBooksPage() {
   const [search, setSearch] = useState("");
@@ -92,52 +93,52 @@ export default function AllBooksPage() {
         </div>
 
         {/* 📚 Books */}
-        <div className="md:col-span-3">
-          {filteredBooks.length === 0 ? (
-            <p className="text-gray-500">No books found 😢</p>
-          ) : (
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filteredBooks.map((book) => (
-                <Card key={book.id} className="p-4 relative">
+          <div className="md:col-span-3">
+            {filteredBooks.length === 0 ? (
+              <EmptyState
+                title="No books found"
+                subtitle="Try another search or category"
+                icon="📚"
+              />
+            ) : (
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {filteredBooks.map((book) => (
+                  <Card key={book.id} className="p-4 relative">
 
-                  {/* Image */}
-                  <div className="relative w-full h-40">
-                    <Image
-                      src={book.image_url}
-                      alt={book.title}
-                      fill
-                      className="object-cover rounded"
-                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    />
-                  </div>
+                    <div className="relative w-full h-40">
+                      <Image
+                        src={book.image_url}
+                        alt={book.title}
+                        fill
+                        className="object-cover rounded"
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      />
+                    </div>
 
-                  {/* Category Chip */}
-                  <Chip
-                    size="sm"
-                    className={`absolute top-5 right-5 ${
-                      categoryColors[book.category] || categoryColors.Default
-                    }`}
-                  >
-                    {book.category}
-                  </Chip>
+                    <Chip
+                      size="sm"
+                      className={`absolute top-5 right-5 ${
+                        categoryColors[book.category] || categoryColors.Default
+                      }`}
+                    >
+                      {book.category}
+                    </Chip>
 
-                  {/* Title */}
-                  <h3 className="mt-3 font-semibold text-justify">
-                    {book.title}
-                  </h3>
+                    <h3 className="mt-3 font-semibold text-justify">
+                      {book.title}
+                    </h3>
 
-                  {/* Button */}
-                  <Link href={`/books/${book.id}`}>
-                    <Button size="sm" className="mt-3 w-full">
-                      Details
-                    </Button>
-                  </Link>
+                    <Link href={`/books/${book.id}`}>
+                      <Button size="sm" className="mt-3 w-full">
+                        Details
+                      </Button>
+                    </Link>
 
-                </Card>
-              ))}
-            </div>
-          )}
-        </div>
+                  </Card>
+                ))}
+              </div>
+            )}
+          </div>
 
       </div>
     </div>
