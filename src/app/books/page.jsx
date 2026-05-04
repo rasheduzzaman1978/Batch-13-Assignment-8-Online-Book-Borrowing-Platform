@@ -80,11 +80,9 @@ export default function AllBooksPage() {
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
 
               {filteredBooks.map((book) => (
-                <Card
-                  key={book.id}
-                  className="group p-0 overflow-hidden rounded-2xl border border-gray-200 shadow-sm 
-                  hover:shadow-xl transition duration-300 bg-white/80 backdrop-blur-md"
-                >
+                
+                <Card  key={book.id} className="w-full group p-0 overflow-hidden rounded-2xl border border-gray-200 shadow-sm 
+                    hover:shadow-xl transition duration-300 bg-white/80 backdrop-blur-md">
 
                   {/* Image */}
                   <div className="relative w-full h-48 overflow-hidden">

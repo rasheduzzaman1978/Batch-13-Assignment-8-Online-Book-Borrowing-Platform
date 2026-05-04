@@ -57,7 +57,7 @@ export default function FeaturedBooks() {
               </h3>
 
               <p className="text-sm text-gray-600 mb-2">
-                ✍️ {book.author}
+                ✍️ By {book.author}
               </p>
 
               <p className="text-sm text-gray-500 line-clamp-2 mb-4">

@@ -23,7 +23,7 @@ export const metadata = {
   description:
     "An online platform that allows users to browse, borrow, and manage books efficiently.",
   icons: {
-    icon: [{ url: "/bookFavicon.png", type: "image/png+xml" }],
+    icon: [{ url: "/bookFavicon.png", type: "image/png" }],
   },
 };
 
